@@ -1,1 +1,58 @@
-<p>register-page works!</p>
+<h2 class="text-center mt-5">Registro</h2>
+
+<form
+  class="form_rounded_border mx-auto"
+  action=""
+  [formGroup]="registerForm"
+  (ngSubmit)="onRegister()"
+>
+  <mat-form-field>
+    <mat-label>Nombre</mat-label>
+    <input
+      type="text"
+      matInput
+      placeholder="Ex Gino Baptista..."
+      formControlName="nombre"
+    />
+    <mat-error>Este campo es obligatorio</mat-error>
+  </mat-form-field>
+
+  <div class="row">
+    <div class="col-6">
+      <mat-form-field class="w-100">
+        <mat-label>Email</mat-label>
+        <input
+          type="text"
+          matInput
+          placeholder="Ex gino@gmail.com"
+          type="email"
+          formControlName="email"
+        />
+        <mat-error>Este campo es obligatorio</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-6">
+      <mat-form-field class="w-100">
+        <mat-label>Contraseña</mat-label>
+        <input
+          type="text"
+          matInput
+          placeholder="Ex Abc123..."
+          formControlName="password"
+        />
+        <mat-error>Este campo es obligatorio</mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <button class="w-50 mx-auto" mat-raised-button color="primary" type="submit">
+    <mat-icon>app_registration</mat-icon>
+    Registrarse
+  </button>
+
+  <h4>
+    Ya tienes una cuenta?, inicia sesion
+    <strong routerLink="/auth/login">aqui</strong>
+  </h4>
+</form>

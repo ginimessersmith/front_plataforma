@@ -10,5 +10,77 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+.form_rounded_border {
+  max-width: 600px;
+  width: 100%;
+  border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 50px;
+  padding: 20px;
+  box-shadow: 5px 5px 15px 5px rgb(126, 126, 126);
+}
+
+.ord_column {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+  flex-direction: column;
+}
+
+.ord_row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+  gap: 20px;
+}
+
+.custom-button {
+  background-color:#3f51b5;
+  border: none;
+}
+
+mat-sidenav-container{
+  height: calc(100vh - 78px);
+}
+
+/* .content{
+  padding: 24px;
+} */
+
+mat-toolbar{
+  position: relative;
+  z-index: 5;
+}
+
+.photo-perfil{
+  width: 100px;
+  height: 100px;
+}
+
+.sidenav-header{
+  padding-top: 24px;
+  text-align: center;
+  >img{
+    border-radius: 100%;
+    object-fit: cover;
+    margin-bottom: 10px;
+  }
+
+  .header-text{
+    >h2{
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.5rem;
+    }
+  }
+}
 

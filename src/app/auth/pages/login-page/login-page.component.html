@@ -1,1 +1,39 @@
-<p>login-page works!</p>
+<!-- <div class="d-flex justify-content-center"> -->
+  <h2 class="text-center mt-5">Iniciar Sesion</h2>
+  <form
+  class="mx-auto w-50 mt-5 form_rounded_border"
+  [formGroup]="loginForm"
+  action=""
+  (ngSubmit)="onLogin()"
+  >
+
+    <div class="row">
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email">
+        <mat-error>El email es obligatorio</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field>
+        <mat-label>Contraseña</mat-label>
+        <input matInput type="password" formControlName="password">
+        <mat-error>Contraseña invalida</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <button type="submit" mat-raised-button color="primary" class="w-50 mx-auto" [disabled]="loginForm.invalid">
+        <mat-icon>login</mat-icon>
+        Ir
+      </button>
+    </div>
+
+    <div class="row">
+      <h4>No tienes una cuenta?, registrate <strong class="" routerLink="/auth/register">aqui</strong></h4>
+    </div>
+
+  </form>
+
+<!-- </div> -->

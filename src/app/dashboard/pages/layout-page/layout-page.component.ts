@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-layout-page',
@@ -7,4 +8,15 @@ import { Component } from '@angular/core';
 })
 export class LayoutPageComponent {
 
+  constructor(
+    private router:Router
+  ){}
+
+  goToLogin(){
+    this.router.navigateByUrl('/auth/login')
+  }
+
+  goToRegister(){
+    this.router.navigateByUrl('/auth/register')
+  }
 }
