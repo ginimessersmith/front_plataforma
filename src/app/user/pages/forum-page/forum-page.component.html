@@ -1,1 +1,61 @@
-<p>forum-page works!</p>
+<!-- <div>
+
+  <div></div>
+  <div class="custom_spinner">
+    <shared-spinner></shared-spinner>
+  </div>
+  <div></div>
+</div> -->
+
+<div>
+  <div>
+    <h2 class="ms-2 mt-2">Preguntas del Foro</h2>
+    <button
+      class="ms-2 mb-2"
+      mat-raised-button
+      color="warn"
+      (click)="goToCreateQuestion()"
+    >
+      Realizar una Pregunta
+    </button>
+  </div>
+
+  <mat-divider></mat-divider>
+  <div class="custom_question">
+    <mat-card *ngFor="let item of questionList" class="w-75">
+      <mat-card-title class="custom_title_card">{{
+        item.title
+      }}</mat-card-title>
+      <mat-card-subtitle class="ms-3"
+        >Por: {{ item.User.name }}</mat-card-subtitle
+      >
+      <mat-card-content>
+        {{ item.content }}
+        <!-- <mat-divider></mat-divider> -->
+      </mat-card-content>
+
+      <mat-card-footer>
+        <div class="custom_button_card">
+          <div>
+            <button
+              class="m-1"
+              *ngFor="let itemTag of item.Tags"
+              mat-raised-button
+            >
+              #{{ itemTag.name }}
+            </button>
+          </div>
+          <div>
+            <button
+              mat-stroked-button
+              color="accent"
+              (click)="goToQuestion(item.id)"
+            >
+              <mat-icon>visibility</mat-icon>ver
+            </button>
+          </div>
+        </div>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+</div>

@@ -13,36 +13,49 @@ import { Router } from '@angular/router';
 })
 export class LoginPageComponent {
 
-  public loginForm:FormGroup = this.formBuilder.group({
-    email:['',[Validators.required],[]],
-    password:['',[Validators.required],[]]
+  public loginForm: FormGroup = this.formBuilder.group({
+    email: ['', [Validators.required], []],
+    password: ['', [Validators.required], []]
   })
 
   constructor(
-    private formBuilder:FormBuilder,
-    private authService:AuthService,
-    private router:Router
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private router: Router
   ) { }
 
-  onLogin(){
-    const {email,password } = this.loginForm.value
+  onLogin() {
+    const { email, password } = this.loginForm.value
 
-    const loginInterface:LoginInterface = {
+    const loginInterface: LoginInterface = {
       email,
       password
     }
 
     this.authService.login(loginInterface)
-    .subscribe({
-      next:()=>{
-        Swal.fire('','Iniciado con exito','success')
-        this.router.navigateByUrl('/user/perfil')
-      },
-      error:(err)=>{
-        console.log({err})
-        Swal.fire('','No se puede iniciar sesion','error')
-      },
-    })
+      .subscribe({
+        next: (response) => {
+
+          if (response.user.active) {
+
+            const data = JSON.stringify(response)
+            localStorage.setItem('userData', data)
+            Swal.fire('', 'Iniciado con exito', 'success')
+            this.router.navigateByUrl('/user/perfil')
+
+          } else {
+
+            Swal.fire('Usted no puede iniciar sesion', 'Hable con el administrador', 'error')
+            this.router.navigateByUrl('/auth/login')
+
+          }
+
+        },
+        error: (err) => {
+          console.log({ err })
+          Swal.fire('', 'Error al iniciar sesion', 'error')
+        },
+      })
 
   }
 }

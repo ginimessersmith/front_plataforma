@@ -1,0 +1,118 @@
+<div class="custom_title_button">
+  <button mat-mini-fab color="primary" (click)="goBack()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <h2>Publicacion</h2>
+</div>
+
+<div class="m-3 d-flex justify-content-center align-items-center">
+  <mat-card class="widt_card">
+    <mat-card-header>
+      <mat-card-title>{{ question.question.title }}</mat-card-title>
+      <mat-card-subtitle
+        >Pregunta realizada por:
+        {{ question.question.User.name }}</mat-card-subtitle
+      >
+      <mat-card-subtitle
+        >Fecha: {{ question.question.createdAt | date }}</mat-card-subtitle
+      >
+    </mat-card-header>
+    <mat-card-content>
+      {{ question.question.content }}
+    </mat-card-content>
+
+    <mat-card-footer class="p-3">
+      <mat-card-subtitle>Tags:</mat-card-subtitle>
+      <div class="order_button">
+        <div>
+          <button
+            class="m-1"
+            *ngFor="let item of question.question.Tags"
+            mat-stroked-button
+          >
+            #{{ item.name }}
+          </button>
+        </div>
+
+        <div>
+          <button
+            *ngIf="!isResponse"
+            mat-raised-button
+            color="primary"
+            (click)="seeRespondForm()"
+          >
+            Responder
+          </button>
+          <button
+            *ngIf="isResponse"
+            mat-raised-button
+            color="warn"
+            (click)="seeRespondForm()"
+          >
+            Cancelar respuesta
+          </button>
+        </div>
+      </div>
+    </mat-card-footer>
+  </mat-card>
+</div>
+
+<div
+  *ngIf="isResponse"
+  class="m-3 d-flex justify-content-center align-items-center"
+>
+  <mat-card class="widt_card">
+    <mat-card-title class="ms-3">Escriba su respesta:</mat-card-title>
+    <form
+      [formGroup]="respondForm"
+      (ngSubmit)="sendRespond()"
+      class="my-2"
+      action=""
+    >
+      <mat-form-field class="w-100 p-3">
+        <mat-label>Descripcion</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+        <mat-error>Este campo es Obligatorio</mat-error>
+      </mat-form-field>
+
+      <!-- <mat-form-field>
+        <mat-label>Enlace</mat-label>
+        <input type="text" matInput />
+      </mat-form-field> -->
+
+      <button
+        [disabled]="respondForm.invalid"
+        type="submit"
+        class="ms-3"
+        color="primary"
+        mat-raised-button
+      >
+        <mat-icon>send</mat-icon>
+        Enviar
+      </button>
+    </form>
+  </mat-card>
+</div>
+
+<mat-divider></mat-divider>
+<div>
+  <h2 class="ms-3">Respuestas:</h2>
+  <div class="custom_response">
+    <mat-card
+      class="widt_card my-3"
+      *ngFor="let itemResp of question.responses"
+    >
+      <mat-card-header>
+        <mat-card-subtitle
+          >Respuesta por: {{ itemResp.User.name }}</mat-card-subtitle
+        >
+        <mat-card-subtitle
+          >Fecha: {{ itemResp.createdAt | date }}</mat-card-subtitle
+        >
+      </mat-card-header>
+      <mat-card-content>
+        {{ itemResp.description }}
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

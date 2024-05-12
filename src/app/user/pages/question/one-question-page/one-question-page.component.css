@@ -1,0 +1,27 @@
+.custom_response{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.widt_card{
+  width: 80%;
+}
+
+.order_button{
+  display: flex;
+  justify-content: space-between;
+}
+
+.custom_title_button{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-left: 1rem;
+  margin-top: 1rem;
+}
+.custom_title_button h2 {
+  margin: 0;
+  line-height: 1;
+}

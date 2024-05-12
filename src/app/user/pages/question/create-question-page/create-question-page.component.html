@@ -1,0 +1,71 @@
+<div class="custom_title">
+  <button mat-mini-fab (click)="goBack()" color="primary" ><mat-icon>arrow_back</mat-icon></button>
+  <h2>Realice su pregunta</h2>
+</div>
+<mat-divider></mat-divider>
+<div class="ms-5 mt-3">
+  <form
+    [formGroup]="createQuestionForm"
+    action=""
+    (ngSubmit)="onCreateQuestion()"
+  >
+    <div class="custom_input">
+      <mat-form-field>
+        <mat-label>Titulo de la pregunta</mat-label>
+        <input
+          type="text"
+          matInput
+          placeholder="Ex. Dudas de NestJs ..."
+          formControlName="title"
+        />
+        <mat-error>Este campo es obligatorio</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Contenido de la pregunta</mat-label>
+        <textarea
+          matInput
+          placeholder="Ex. Estoy usando NestJs y quisera..."
+          formControlName="content"
+        ></textarea>
+        <mat-error>Este campo es obligatorio</mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <p>
+        <em>Si desea puede agregar Tags</em>
+      </p>
+      <mat-form-field class="custom_tag">
+        <mat-label>Tags</mat-label>
+        <mat-chip-grid #chipGrid aria-label="Enter keywords">
+          <mat-chip-row
+            *ngFor="let keyword of tags"
+            (removed)="removeKeyword(keyword)"
+          >
+            {{ keyword }}
+            <button matChipRemove aria-label="'remove ' + keyword">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip-row>
+        </mat-chip-grid>
+
+        <input
+          placeholder="Nuevo Tag..."
+          [matChipInputFor]="chipGrid"
+          (matChipInputTokenEnd)="add($event)"
+        />
+      </mat-form-field>
+    </div>
+    <div>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="createQuestionForm.invalid"
+      >
+        Guardar
+        <mat-icon>bookmark</mat-icon>
+      </button>
+    </div>
+  </form>
+</div>

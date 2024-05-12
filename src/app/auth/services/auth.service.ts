@@ -23,6 +23,6 @@ export class AuthService {
 
   login(loginUser: LoginInterface): Observable<LoginResponseInterface> {
     const url = `${this.baseUrl}/users/login`
-    return this.http.post<LoginResponseInterface  >(url, loginUser)
+    return this.http.post<LoginResponseInterface>(url, loginUser)
   }
 }

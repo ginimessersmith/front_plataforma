@@ -4,6 +4,7 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { MaterialModule } from '../material/material.module';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 
 
@@ -11,7 +12,8 @@ import { MaterialModule } from '../material/material.module';
   declarations: [
     SidenavComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    SpinnerComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +22,8 @@ import { MaterialModule } from '../material/material.module';
   exports:[
     SidenavComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    SpinnerComponent
   ]
 })
 export class SharedModule { }

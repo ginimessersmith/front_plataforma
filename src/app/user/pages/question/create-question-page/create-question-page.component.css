@@ -1,0 +1,21 @@
+.custom_input {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.custom_tag {
+  width: 75%;
+}
+.custom_title {
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+  margin-left: 0.5rem;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+.custom_title h2 {
+  margin: 0;
+  line-height: 1;
+}

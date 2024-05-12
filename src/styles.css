@@ -12,6 +12,7 @@ body {
 }
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+
 .form_rounded_border {
   max-width: 600px;
   width: 100%;

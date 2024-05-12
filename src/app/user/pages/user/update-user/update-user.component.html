@@ -1,0 +1,60 @@
+<div class="ms-2 mt-2">
+  <button mat-mini-fab color="primary" (click)="goBack()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+</div>
+<div class="custom_cards_update">
+  <form class="custom_form" [formGroup]="updateUserForm" (ngSubmit)="updateUser()" action="">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Actualizar</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+
+        <div class="custom_input_form">
+          <mat-form-field>
+            <mat-label>Nombre</mat-label>
+            <input matInput placeholder="Ex. Gino" formControlName="name" />
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Correo Electronico</mat-label>
+            <input matInput placeholder="Ex. gino@gmail.com" formControlName="email" />
+            <mat-error>El campo debe ser un email</mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Numero de Telefono</mat-label>
+            <input type="tel" matInput placeholder="Ex. 75338090" formControlName="phone">
+            <mat-icon matSuffix>mode_edit</mat-icon>
+            <mat-error>El campo debe tener minimo 8 numeros</mat-error>
+          </mat-form-field>
+        </div>
+        <button type="submit" mat-raised-button color="primary">Guardar</button>
+      </mat-card-content>
+    </mat-card>
+  </form>
+  <mat-card>
+
+    <mat-card-header>
+      <mat-card-title>Foto de perfil</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="custom_card_file">
+        <img class="custom_img" src="../../../../assets/image.png" width="200" height="200" alt="" />
+        <div class="custom_button_file">
+          <button mat-stroked-button color="primary">
+            <mat-icon>upload</mat-icon>
+            <input type="file" (change)="onFileSelected($event)">
+            <h4>Subir una imagen</h4>
+          </button>
+        </div>
+
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+
+</div>

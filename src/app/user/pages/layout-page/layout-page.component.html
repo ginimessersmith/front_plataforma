@@ -5,7 +5,7 @@
         <button mat-icon-button (click)="collapsed.set(!collapsed())">
         <mat-icon>menu</mat-icon>
         </button>
-        <button class="custom-button" >
+        <button class="custom-button" (click)="goToForum()" >
           <img class="px-3" src="../../../../assets/plataform light.svg" alt="" />
         </button>
         <button mat-raised-button color="warn" (click)="onLogout()">

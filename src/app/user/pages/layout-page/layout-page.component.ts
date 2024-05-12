@@ -18,7 +18,7 @@ export class LayoutPageComponent implements OnInit {
 
   @ViewChild(MatSidenav) sidenav!: MatSidenav;//? agregar para usar el sidenav.toggle();
 
-  collapsed=signal(false)
+  collapsed=signal(true)
 
   sidenavWidth = computed(()=>this.collapsed()?'65px':'250px')
 
@@ -47,14 +47,14 @@ export class LayoutPageComponent implements OnInit {
       route:'/user/perfil'
     },
     {
-      icon:'content_copy',
-      label:'Recursos',
-      route:'/user/resource'
-    },
-    {
       icon:'forum',
       label:'Foro',
       route:'/user/forum'
+    },
+    {
+      icon:'content_copy',
+      label:'Recursos',
+      route:'/user/resource'
     },
     {
       icon:'settings',
@@ -66,5 +66,9 @@ export class LayoutPageComponent implements OnInit {
   onLogout(){
     localStorage.clear()
     this.router.navigateByUrl('/dashboard')
+  }
+
+  goToForum(){
+    this.router.navigateByUrl('/user/forum')
   }
 }

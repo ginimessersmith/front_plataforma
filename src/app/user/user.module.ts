@@ -9,6 +9,12 @@ import { MaterialModule } from '../material/material.module';
 import { ResourcePageComponent } from './pages/resource-page/resource-page.component';
 import { SettingPageComponent } from './pages/setting-page/setting-page.component';
 import { ForumPageComponent } from './pages/forum-page/forum-page.component';
+import { CreateQuestionPageComponent } from './pages/question/create-question-page/create-question-page.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { OneQuestionPageComponent } from './pages/question/one-question-page/one-question-page.component';
+import { UpdateUserComponent } from './pages/user/update-user/update-user.component';
+
+
 
 
 
@@ -19,13 +25,17 @@ import { ForumPageComponent } from './pages/forum-page/forum-page.component';
     ResourcePageComponent,
     SettingPageComponent,
     ForumPageComponent,
-
+    CreateQuestionPageComponent,
+    OneQuestionPageComponent,
+    UpdateUserComponent,
+    
   ],
   imports: [
     CommonModule,
     UserRoutingModule,
     SharedModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule
   ]
 })
 export class UserModule { }
