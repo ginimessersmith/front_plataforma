@@ -1,0 +1,31 @@
+<div class="m-2">
+  <h2>Categoria : {{categoriesResources.name}}</h2>
+</div>
+
+<div *ngIf="categoriesResources.Resources.length>0;else NoResources">
+  <h3 class="m-2">Recursos</h3>
+  <mat-divider></mat-divider>
+
+  <mat-card class="w-25 m-3" *ngFor="let item of categoriesResources.Resources">
+    <mat-card-header>
+      <mat-card-title>Descripcion: {{item.description}}</mat-card-title>
+      <mat-card-subtitle>Fecha de publicacion: {{item.createdAt|date}}</mat-card-subtitle>
+      <mat-card-subtitle>Subido por: {{item.User.name}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="m-2" *ngFor="let itemFile of item.Files">
+        <a [href]="itemFile.path_url">
+          <button mat-raised-button>{{itemFile.filename}}</button>
+        </a>
+      </div>
+
+    </mat-card-content>
+
+  </mat-card>
+</div>
+
+<ng-template #NoResources>
+  <div class="m-2">
+    <h3>Esta categoria no tiene recursos</h3>
+  </div>
+</ng-template>

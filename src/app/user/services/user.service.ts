@@ -4,6 +4,7 @@ import { UpdateUserInterface } from '../interface/user/update-user.interface';
 import { environment } from 'src/environments/environment';
 import { LoginInterface, LoginResponseInterface } from 'src/app/auth/interface';
 import { Observable } from 'rxjs';
+import { RespondByUserInterface } from '../interface/user/respond-by-user.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -29,5 +30,19 @@ export class UserService {
     }
 
     return this.http.put<boolean>(url, updateUser, options)
+  }
+
+  getResponseByUser():Observable<RespondByUserInterface[]>{
+    const url = `${this.baseUrl}/responses/v1/user`
+    const user: LoginResponseInterface = JSON.parse(localStorage.getItem('userData')!)
+    const headers = new HttpHeaders({
+      'authorization': user.token
+    })
+
+    const options = {
+      headers
+    }
+
+    return this.http.get<RespondByUserInterface[]>(url,options)
   }
 }

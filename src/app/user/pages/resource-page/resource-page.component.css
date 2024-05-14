@@ -1,0 +1,21 @@
+.order_button{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 2rem;
+}
+
+.custom_button_file h4 {
+  margin: 0;
+  line-height: 1;
+}
+
+.custom_button_file input[type="file"] {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}

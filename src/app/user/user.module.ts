@@ -15,6 +15,7 @@ import { OneQuestionPageComponent } from './pages/question/one-question-page/one
 import { UpdateUserComponent } from './pages/user/update-user/update-user.component';
 import { AllTagsComponent } from './pages/tags/all-tags/all-tags.component';
 import { OneTagComponent } from './pages/tags/one-tag/one-tag.component';
+import { OneCategoryComponent } from './pages/categories/one-category/one-category.component';
 
 
 
@@ -32,6 +33,7 @@ import { OneTagComponent } from './pages/tags/one-tag/one-tag.component';
     UpdateUserComponent,
     AllTagsComponent,
     OneTagComponent,
+    OneCategoryComponent,
     
   ],
   imports: [

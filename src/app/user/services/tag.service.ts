@@ -15,7 +15,6 @@ export class TagService {
 
   constructor(
     private http: HttpClient,
-    private router: Router,
   ) { }
 
   findAllTags(): Observable<TagInterface[]> {

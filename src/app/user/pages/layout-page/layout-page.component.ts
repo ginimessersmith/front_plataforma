@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, ViewChild, computed, signal } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
+import { LoginResponseInterface } from 'src/app/auth/interface';
 
 export type MenuItem = {
   icon: string
@@ -23,13 +24,15 @@ export class LayoutPageComponent implements OnInit {
   sidenavWidth = computed(()=>this.collapsed()?'65px':'250px')
 
   profilePicSize=computed(()=>this.collapsed()?'32' : '100')
+  public userData!: LoginResponseInterface
 
   constructor(
     private router:Router
   ){}
 
   ngOnInit(): void {
-
+    const userLocal: LoginResponseInterface = JSON.parse(localStorage.getItem('userData')!)
+    this.userData = userLocal
   }
 
 

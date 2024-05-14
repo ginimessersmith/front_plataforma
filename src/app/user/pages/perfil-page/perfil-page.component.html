@@ -10,13 +10,15 @@
           </mat-card-subtitle>
         </div>
         <div>
-          <img
-            class="custom_img"
-            src="../../../../assets/image.png"
-            width="100"
-            height="100"
-            alt=""
-          />
+          <ng-container>
+            <img *ngIf="userData.user.photo_url; else noImage" class="custom_img" [src]="userData.user.photo_url"
+              width="100" height="100" alt="" />
+          </ng-container>
+
+          <ng-template #noImage>
+            <img class="custom_img" src="../../../../assets/no-image.png" width="100" height="100" alt="" />
+          </ng-template>
+
         </div>
       </div>
     </mat-card-header>
@@ -28,4 +30,43 @@
       <button mat-raised-button color="accent" (click)="goToUpdate()">Actualizar Perfil</button>
     </mat-card-actions>
   </mat-card>
+</div>
+<mat-divider></mat-divider>
+<div class="d-flex justify-content-start align-items-center mt-2">
+  <h2 class="ms-2 my-2">Mis interaciones.</h2>
+  <div class="mx-3">
+    <mat-icon class="mx-2" [matBadge]="responses.length" matBadgeColor="warn">comment</mat-icon>
+    <mat-icon class="mx-2" matBadge="0" matBadgeColor="warn">question_mark</mat-icon>
+  </div>
+</div>
+<div class="ms-2 my-2 w-75">
+  <mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Respuetas realizadas
+        </mat-panel-title>
+        <mat-panel-description>
+
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="m-2" *ngFor="let item of responses">
+        <mat-divider></mat-divider>
+        <p>Descripcion: {{item.description}}</p>
+        <p>Fecha: {{item.createdAt | date}}</p>
+        <p *ngIf="item.url_extern">Enlace: <a class="ms-2" [href]="item.url_extern">
+            <button mat-raised-button>Ir</button>
+          </a>
+        </p>
+
+        <div *ngFor="let itemFile of item.Files">
+          <p *ngIf="itemFile.path_url">Archivo: <a class="ms-2" [href]="itemFile.path_url">
+              <button mat-raised-button>{{itemFile.filename}}</button>
+            </a>
+          </p>
+        </div>
+        <mat-divider></mat-divider>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>

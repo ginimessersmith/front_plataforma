@@ -1,4 +1,41 @@
-
-.w-30{
+.w-30 {
   width: 30%;
+}
+
+.Dashboard_main {
+  background-color: #9d021f;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1 rem;
+  width: 50%;
+  margin: 5rem;
+  padding: 5rem;
+  border-radius: 15px 100px;
+}
+
+.Dashboard_main h3 {
+
+  line-height: 0.5;
+
+}
+
+.Dashboard_main h1 {
+  font-size: 3rem;
+}
+
+.dashboard_main_button {
+}
+
+.dashboard_main_button h4 {
+  margin: 0;
+  line-height: 1;
+}
+
+.main_h{
+ display: flex;
+ flex-direction: column;
+ gap: 2rem;
+
 }

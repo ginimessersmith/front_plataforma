@@ -3,9 +3,9 @@
     <div class="col-12">
       <div class="d-flex justify-content-between align-items-center">
         <button mat-icon-button (click)="collapsed.set(!collapsed())">
-        <mat-icon>menu</mat-icon>
+          <mat-icon>menu</mat-icon>
         </button>
-        <button class="custom-button" (click)="goToForum()" >
+        <button class="custom-button" (click)="goToForum()">
           <img class="px-3" src="../../../../assets/plataform light.svg" alt="" />
         </button>
         <button mat-raised-button color="warn" (click)="onLogout()">
@@ -19,27 +19,24 @@
 <mat-sidenav-container>
   <mat-sidenav opened mode="side" [style.width]="sidenavWidth()">
     <div class="sidenav-header">
-      <!-- <img class="photo-perfil" src="../../../../assets/image.png" alt="" /> -->
-      <img src="../../../../assets/image.png" [width]="profilePicSize()" [height]="profilePicSize() " alt="">
+      <ng-container *ngIf="userData.user.photo_url;else NoImage">
+        <img [src]="userData.user.photo_url" [width]="profilePicSize()" [height]="profilePicSize() " alt="">
+      </ng-container>
+      <ng-template #NoImage>
+        <img src="../../../../assets/no-image.png" [width]="profilePicSize()" [height]="profilePicSize() " alt="">
+      </ng-template>
+
       <div class="header-text" [class.hide-header-text]="collapsed()">
-        <h2>Gino Baptista</h2>
+        <h2>{{userData.user.name}}</h2>
       </div>
     </div>
 
     <mat-nav-list>
-      <a
-      *ngFor="let item of menuItem()"
-      mat-list-item
-      class="custom-link menu-item"
-      [routerLink]="item.route"
-      routerLinkActive="selected-menu-item"
-      #rla = "routerLinkActive"
-      [activated]="rla.isActive"
-
-      >
+      <a *ngFor="let item of menuItem()" mat-list-item class="custom-link menu-item" [routerLink]="item.route"
+        routerLinkActive="selected-menu-item" #rla="routerLinkActive" [activated]="rla.isActive">
         <!-- href="{{item.route}}" -->
-      <mat-icon matListItemIcon color="primary">{{item.icon}}</mat-icon>
-      <span matListItemTitle *ngIf="!collapsed()">{{item.label}}</span>
+        <mat-icon matListItemIcon color="primary">{{item.icon}}</mat-icon>
+        <span matListItemTitle *ngIf="!collapsed()">{{item.label}}</span>
       </a>
     </mat-nav-list>
 

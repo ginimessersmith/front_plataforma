@@ -10,6 +10,7 @@ import { OneQuestionPageComponent } from './pages/question/one-question-page/one
 import { UpdateUserComponent } from './pages/user/update-user/update-user.component';
 import { AllTagsComponent } from './pages/tags/all-tags/all-tags.component';
 import { OneTagComponent } from './pages/tags/one-tag/one-tag.component';
+import { OneCategoryComponent } from './pages/categories/one-category/one-category.component';
 
 
 const routes: Routes = [
@@ -26,6 +27,7 @@ const routes: Routes = [
       { path: 'update-user', component: UpdateUserComponent },
       { path: 'all-tags', component: AllTagsComponent },
       { path: 'one-tag', component: OneTagComponent },
+      { path: 'one-category', component: OneCategoryComponent },
       { path: '**', redirectTo: 'perfil' }
     ]
   },
