@@ -14,6 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class UpdateUserComponent {
 
+  public file!: File
   public updateUserForm: FormGroup = this.formBuilder.group({
     name: ['', [], []],
     email: ['', [Validators.email], []],
@@ -67,9 +68,9 @@ export class UpdateUserComponent {
   }
 
   onFileSelected(event: any) {
-    const file: File = event.target.files[0];
-    if (file) {
-      console.log('Archivo seleccionado:', file);
+    this.file = event.target.files[0];
+    if (this.file) {
+      console.log('Archivo seleccionado:', this.file);
     }
   }
 

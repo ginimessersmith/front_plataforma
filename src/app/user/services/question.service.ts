@@ -7,6 +7,7 @@ import { LoginResponseInterface } from 'src/app/auth/interface';
 import { FindAllQuestionInterface } from '../interface/question/findAllQuestion-response';
 import { FindOneQuestionInterface } from '../interface/question/finOneQuestion-response';
 import { CreateRespondInterface } from '../interface/question/create-respond.interface';
+import { FocusMonitor } from '@angular/cdk/a11y';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,14 @@ export class QuestionService {
 
     const option = { headers }
 
+    const formData = new FormData()
+    formData.append('title', createQuestionInterface.title)
+    for (let tag of createQuestionInterface.tags) {
+      formData.append('tags[]', tag);
+    }
+    formData.append('content', createQuestionInterface.content)
+    if (createQuestionInterface.files) formData.append('files', createQuestionInterface.files)
+
     return this.http.post<boolean>(url, createQuestionInterface, option)
   }
 
@@ -52,10 +61,16 @@ export class QuestionService {
     const headers = new HttpHeaders({
       'authorization': token
     })
+    const formData = new FormData();
+    formData.append('description', createRespondInterface.description)
+    if (createRespondInterface.url_extern) formData.append('url_extern', createRespondInterface.url_extern)
+    formData.append('questionId', createRespondInterface.questionId.toString())
+    if (createRespondInterface.files) formData.append('files', createRespondInterface.files, createRespondInterface.files.name)
+
 
     const option = { headers }
 
-    return this.http.post<boolean>(url, createRespondInterface,option)
+    return this.http.post<boolean>(url, formData, option)
   }
 
 }

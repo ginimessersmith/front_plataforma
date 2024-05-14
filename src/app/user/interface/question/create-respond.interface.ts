@@ -1,5 +1,7 @@
 export interface CreateRespondInterface {
   description: string;
-  questionId:  number;
-  userId:      number;
+  url_extern?: string;
+  questionId: number;
+  userId: number;
+  files?:File;
 }

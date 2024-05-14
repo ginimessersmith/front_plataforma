@@ -1,0 +1,14 @@
+<div class="ms-2 my-2">
+  <button mat-mini-fab color="primary" (click)="goToBack()"> <mat-icon>arrow_back</mat-icon></button>
+</div>
+<div class="m-2">
+  <h1>Tags</h1>
+  <mat-divider></mat-divider>
+</div>
+
+<div>
+  <button style="background-color: yellow;" class="ms-2 my-1" mat-stroked-button
+    *ngFor="let item of listTag" (click)="goToTag(item)">
+    #{{item.name}}
+  </button>
+</div>

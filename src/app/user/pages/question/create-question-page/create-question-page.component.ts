@@ -15,6 +15,7 @@ import Swal from 'sweetalert2';
 })
 export class CreateQuestionPageComponent {
   public tags: string[] = []
+  public file!: File
   announcer = inject(LiveAnnouncer);
 
   public createQuestionForm: FormGroup = this.formBuilder.group({
@@ -58,20 +59,30 @@ export class CreateQuestionPageComponent {
       tags: this.tags,
       idUser: userLocal.user.id
     }
+
+    if (this.file) createQuestionInterface.files = this.file
+    // console.log({createQuestionInterface})
     this.questionService.createQuestion(createQuestionInterface)
-    .subscribe({
-      next:()=>{
-        Swal.fire('','La pregunta se guardo con exito','success')
-        this.router.navigateByUrl('/user/forum')
-      },
-      error:(err)=>{
-        console.log({err})
-        Swal.fire('','Hubo un error al guardar la pregunta','error')
-      }
-    })
+      .subscribe({
+        next: () => {
+          Swal.fire('', 'La pregunta se guardo con exito', 'success')
+          this.router.navigateByUrl('/user/forum')
+        },
+        error: (err) => {
+          console.log({ err })
+          Swal.fire('', 'Hubo un error al guardar la pregunta', 'error')
+        }
+      })
   }
 
-  goBack(){
+  goBack() {
     this.router.navigateByUrl('/user/forum')
+  }
+
+  onFileSelected(event: any) {
+    this.file = event.target.files[0];
+    if (this.file) {
+      console.log('Archivo seleccionado:', this.file);
+    }
   }
 }

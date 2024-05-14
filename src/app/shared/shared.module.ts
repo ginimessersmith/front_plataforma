@@ -5,6 +5,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { MaterialModule } from '../material/material.module';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { IFrameVideoComponent } from './components/i-frame-video/i-frame-video.component';
 
 
 
@@ -13,7 +14,8 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     SidenavComponent,
     HeaderComponent,
     FooterComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    IFrameVideoComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +25,8 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     SidenavComponent,
     HeaderComponent,
     FooterComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    IFrameVideoComponent
   ]
 })
 export class SharedModule { }

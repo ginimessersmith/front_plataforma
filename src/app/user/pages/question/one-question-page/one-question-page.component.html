@@ -9,46 +9,52 @@
   <mat-card class="widt_card">
     <mat-card-header>
       <mat-card-title>{{ question.question.title }}</mat-card-title>
-      <mat-card-subtitle
-        >Pregunta realizada por:
-        {{ question.question.User.name }}</mat-card-subtitle
-      >
-      <mat-card-subtitle
-        >Fecha: {{ question.question.createdAt | date }}</mat-card-subtitle
-      >
+      <mat-card-subtitle>Pregunta realizada por:
+        {{ question.question.User.name }}</mat-card-subtitle>
+      <mat-card-subtitle>Fecha: {{ question.question.createdAt | date }}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      {{ question.question.content }}
+      <div>
+        <div>
+          {{ question.question.content }}
+        </div>
+        <div class="my-2">
+          <div *ngIf="question.question.Files.length>0">
+            <div *ngFor="let file of question.question.Files">
+              <ng-container *ngIf="esImagen(file.path_url)">
+                <div class="custom_img">
+                  <img [src]="file.path_url" alt="imagen" width="75%" height="75%">
+                </div>
+              </ng-container>
+              <ng-container *ngIf="!esImagen(file.path_url)">
+                <a [href]="file.path_url" target="_blank" rel="noopener noreferrer">
+                  <button mat-raised-button>
+                    <mat-icon>insert_drive_file</mat-icon>
+                    {{ file.filename }}
+                  </button>
+                </a>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </mat-card-content>
 
     <mat-card-footer class="p-3">
       <mat-card-subtitle>Tags:</mat-card-subtitle>
       <div class="order_button">
         <div>
-          <button
-            class="m-1"
-            *ngFor="let item of question.question.Tags"
-            mat-stroked-button
-          >
+          <button class="m-1" *ngFor="let item of question.question.Tags" mat-stroked-button (click)="goToTag(item)">
             #{{ item.name }}
           </button>
         </div>
 
         <div>
-          <button
-            *ngIf="!isResponse"
-            mat-raised-button
-            color="primary"
-            (click)="seeRespondForm()"
-          >
+          <button *ngIf="!isResponse" mat-raised-button color="primary" (click)="seeRespondForm()">
             Responder
           </button>
-          <button
-            *ngIf="isResponse"
-            mat-raised-button
-            color="warn"
-            (click)="seeRespondForm()"
-          >
+          <button *ngIf="isResponse" mat-raised-button color="warn" (click)="seeRespondForm()">
             Cancelar respuesta
           </button>
         </div>
@@ -57,61 +63,85 @@
   </mat-card>
 </div>
 
-<div
-  *ngIf="isResponse"
-  class="m-3 d-flex justify-content-center align-items-center"
->
+<div *ngIf="isResponse" class="m-3 d-flex justify-content-center align-items-center">
   <mat-card class="widt_card">
     <mat-card-title class="ms-3">Escriba su respesta:</mat-card-title>
-    <form
-      [formGroup]="respondForm"
-      (ngSubmit)="sendRespond()"
-      class="my-2"
-      action=""
-    >
-      <mat-form-field class="w-100 p-3">
-        <mat-label>Descripcion</mat-label>
-        <textarea matInput formControlName="description"></textarea>
-        <mat-error>Este campo es Obligatorio</mat-error>
-      </mat-form-field>
+    <mat-card-content>
+      <div class="custom_content_res">
+        <form [formGroup]="respondForm" (ngSubmit)="sendRespond()" class="my-2 w-75" action="">
+          <div class="custon_input_form_respond">
+            <mat-form-field>
+              <mat-label>Descripcion</mat-label>
+              <textarea matInput formControlName="description"></textarea>
+              <mat-error>Este campo es Obligatorio</mat-error>
+            </mat-form-field>
 
-      <!-- <mat-form-field>
-        <mat-label>Enlace</mat-label>
-        <input type="text" matInput />
-      </mat-form-field> -->
+            <mat-form-field>
+              <mat-label>Enlace</mat-label>
+              <input type="text" matInput placeholder="Ex. https://www.youtube.com/embed/B-lipaiZII8"
+                formControlName="url_extern" />
+            </mat-form-field>
 
-      <button
-        [disabled]="respondForm.invalid"
-        type="submit"
-        class="ms-3"
-        color="primary"
-        mat-raised-button
-      >
-        <mat-icon>send</mat-icon>
-        Enviar
-      </button>
-    </form>
+          </div>
+          <button [disabled]="respondForm.invalid" type="submit" class="ms-3" color="primary" mat-raised-button>
+            <mat-icon>send</mat-icon>
+            Enviar
+          </button>
+        </form>
+        <button class="custom_button_file" mat-stroked-button color="primary">
+          <mat-icon>upload</mat-icon>
+          <input type="file" (change)="onFileSelected($event)">
+          <h4>Subir Archivo</h4>
+        </button>
+      </div>
+
+      <mat-progress-bar *ngIf="inProgress" mode="indeterminate"></mat-progress-bar>
+
+    </mat-card-content>
+
   </mat-card>
 </div>
 
 <mat-divider></mat-divider>
-<div>
+<div *ngIf="question.responses.length>0">
   <h2 class="ms-3">Respuestas:</h2>
   <div class="custom_response">
-    <mat-card
-      class="widt_card my-3"
-      *ngFor="let itemResp of question.responses"
-    >
+    <mat-card class="widt_card my-3" *ngFor="let itemResp of question.responses">
       <mat-card-header>
-        <mat-card-subtitle
-          >Respuesta por: {{ itemResp.User.name }}</mat-card-subtitle
-        >
-        <mat-card-subtitle
-          >Fecha: {{ itemResp.createdAt | date }}</mat-card-subtitle
-        >
+        <mat-card-subtitle>Respuesta por: {{ itemResp.User.name }}</mat-card-subtitle>
+        <mat-card-subtitle>Fecha: {{ itemResp.createdAt | date }}</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
-        {{ itemResp.description }}
+        <div class="custom_card_content">
+          <div>
+            {{ itemResp.description }}
+          </div>
+          <div *ngIf="itemResp.url_extern">
+            <shared-i-frame-video [videoSrc]="itemResp.url_extern"></shared-i-frame-video>
+          </div>
+          <div *ngIf="itemResp.Files.length > 0">
+            <div *ngFor="let file of itemResp.Files">
+              <mat-card>
+                <mat-card-subtitle class="ms-2 my-2">Recursos</mat-card-subtitle>
+                <mat-card-content>
+                  <ng-container *ngIf="esImagen(file.path_url)">
+                    <div class="custom_img">
+                      <img [src]="file.path_url" alt="imagen" width="75%" height="75%">
+                    </div>
+                  </ng-container>
+                  <ng-container *ngIf="!esImagen(file.path_url)">
+                    <a [href]="file.path_url" target="_blank" rel="noopener noreferrer">
+                      <button mat-raised-button>
+                        <mat-icon>insert_drive_file</mat-icon>
+                        {{ file.filename }}
+                      </button>
+                    </a>
+                  </ng-container>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+        </div>
       </mat-card-content>
     </mat-card>
   </div>

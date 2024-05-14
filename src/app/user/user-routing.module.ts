@@ -8,6 +8,8 @@ import { SettingPageComponent } from './pages/setting-page/setting-page.componen
 import { CreateQuestionPageComponent } from './pages/question/create-question-page/create-question-page.component';
 import { OneQuestionPageComponent } from './pages/question/one-question-page/one-question-page.component';
 import { UpdateUserComponent } from './pages/user/update-user/update-user.component';
+import { AllTagsComponent } from './pages/tags/all-tags/all-tags.component';
+import { OneTagComponent } from './pages/tags/one-tag/one-tag.component';
 
 
 const routes: Routes = [
@@ -22,6 +24,8 @@ const routes: Routes = [
       { path: 'create-question', component: CreateQuestionPageComponent },
       { path: 'one-question', component: OneQuestionPageComponent },
       { path: 'update-user', component: UpdateUserComponent },
+      { path: 'all-tags', component: AllTagsComponent },
+      { path: 'one-tag', component: OneTagComponent },
       { path: '**', redirectTo: 'perfil' }
     ]
   },

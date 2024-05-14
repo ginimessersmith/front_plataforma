@@ -1,0 +1,25 @@
+.custom_tag {
+  margin: 2rem;
+  display: flex;
+  gap: 2rem;
+}
+
+.tag {
+  background-color: yellow;
+  padding: 1rem 1rem;
+}
+
+.order_button{
+  display: flex;
+  flex-direction: row;
+}
+
+button_color{
+  background-color: yellow;
+}
+
+.custom_button_footer{
+  display: flex;
+  flex-direction: row;
+}
+

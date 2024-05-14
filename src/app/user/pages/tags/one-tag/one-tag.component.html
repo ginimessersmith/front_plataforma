@@ -1,0 +1,41 @@
+<div class="ms-2 my-2">
+  <button mat-mini-fab color="primary" (click)="gotToBack()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+</div>
+
+<div class="custom_tag">
+  <mat-card class="tag">
+    <mat-card-title>
+      <h1>Preguntas asosicadas.   #{{tag.name|uppercase}}</h1>
+    </mat-card-title>
+    <!-- <mat-card-title>#{{tag.name}}</mat-card-title> -->
+  </mat-card>
+</div>
+<mat-divider></mat-divider>
+
+<div>
+  <mat-card class="m-4 w-75" *ngFor="let item of questionByTag">
+    <mat-card-header>
+      <mat-card-title>{{item.title}}</mat-card-title>
+      <mat-card-subtitle>Publicacion realizada por: {{item.User.name}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      {{item.content}}
+    </mat-card-content>
+    <mat-card-footer class="custom_button_footer">
+      <div *ngFor="let itemTag of item.Tags">
+        <ng-container *ngIf="tag.name == itemTag.name;else noTag;">
+          <button style="background-color: yellow;" class="button_color" mat-raised-button class="m-2">
+            #{{itemTag.name}}
+          </button>
+        </ng-container>
+        <ng-template #noTag>
+          <button mat-raised-button class="m-2">
+            #{{itemTag.name}}
+          </button>
+        </ng-template>
+      </div>
+    </mat-card-footer>
+  </mat-card>
+</div>

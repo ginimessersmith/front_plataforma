@@ -40,10 +40,19 @@ export class ForumPageComponent implements OnInit {
     this.router.navigateByUrl('/user/create-question')
   }
 
-  goToQuestion(id:number){
+  goToQuestion(id: number) {
 
-    localStorage.setItem('idQuestion',JSON.stringify(id))
+    localStorage.setItem('idQuestion', JSON.stringify(id))
     this.router.navigateByUrl('/user/one-question')
 
+  }
+
+  goToTags() {
+    this.router.navigateByUrl('/user/all-tags')
+  }
+
+  goToTag(tag: {id:number,name:string}) {
+    localStorage.setItem('Tag', JSON.stringify(tag))
+    this.router.navigateByUrl('/user/one-tag')
   }
 }

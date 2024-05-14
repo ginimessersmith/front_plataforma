@@ -14,13 +14,16 @@ import Swal from 'sweetalert2';
 })
 export class OneQuestionPageComponent implements OnInit {
 
+  public file!: File
   public isResponse: boolean = false
   public idQuestion!: number
+  public inProgress:boolean=false
   public question!: FindOneQuestionInterface
   public user!: LoginResponseInterface
 
   public respondForm: FormGroup = this.formBuilder.group({
-    description: ['', [Validators.required], []]
+    description: ['', [Validators.required], []],
+    url_extern: ['', [], []]
   })
 
   constructor(
@@ -53,22 +56,40 @@ export class OneQuestionPageComponent implements OnInit {
   }
 
   sendRespond() {
-    const { description } = this.respondForm.value
+    this.inProgress=!this.inProgress
+    const { description, url_extern } = this.respondForm.value
     const createRespondInterface: CreateRespondInterface = {
       description,
       questionId: this.idQuestion,
       userId: this.user.user.id
     }
 
+    if (url_extern) {
+      if (url_extern.includes('youtube.com')) {
+        const embedUrl = this.transformYouTubeLink(url_extern)
+        if (embedUrl) {
+          createRespondInterface.url_extern = embedUrl
+        } else {
+          createRespondInterface.url_extern = url_extern
+        }
+      }
+    }
+    if (this.file) createRespondInterface.files = this.file
+
+    // console.log({createRespondInterface})
     this.questionService.sendResponse(createRespondInterface)
       .subscribe({
         next: () => {
-          Swal.fire('', 'Respuesta enviada', 'success')
+          this.inProgress=!this.inProgress
           this.isResponse = !this.isResponse
           this.findOneQuestion()
+          Swal.fire('', 'Respuesta enviada', 'success')
         },
         error: () => {
-          Swal.fire('', 'Erro al enviar la respuesta', 'error')
+          this.inProgress=!this.inProgress
+          this.findOneQuestion()
+          Swal.fire('', 'Respuesta enviada', 'success')
+          // Swal.fire('', 'Erro al enviar la respuesta', 'error')
         }
       })
   }
@@ -86,7 +107,37 @@ export class OneQuestionPageComponent implements OnInit {
       })
   }
 
-  goBack(){
+  goBack() {
     this.router.navigateByUrl('/user/forum')
   }
+
+  onFileSelected(event: any) {
+    this.file = event.target.files[0];
+    if (this.file) {
+      console.log('Archivo seleccionado:', this.file);
+    }
+  }
+
+  transformYouTubeLink(url: string): string | null {
+
+    const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/
+    const match = url.match(regex)
+    if (match && match[1]) {
+
+      return `https://www.youtube.com/embed/${match[1]}`
+    } else {
+
+      return null
+    }
+  }
+
+  esImagen(url: string): boolean {
+    return /\.(jpg|jpeg|png|gif)$/i.test(url);
+  }
+
+  goToTag(tag: {id:number,name:string}) {
+    localStorage.setItem('Tag', JSON.stringify(tag))
+    this.router.navigateByUrl('/user/one-tag')
+  }
+
 }

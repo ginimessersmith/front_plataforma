@@ -3,4 +3,5 @@ export interface CreateQuestionInterface {
   content: string;
   idUser:  number;
   tags:    string[];
+  files?:File
 }

@@ -1,7 +1,7 @@
 .custom_input {
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 100%;
 }
 
 .custom_tag {
@@ -19,3 +19,38 @@
   margin: 0;
   line-height: 1;
 }
+
+.custom_button_file {
+}
+
+.custom_button_file h4 {
+  margin: 0;
+  line-height: 1;
+}
+
+.custom_button_file input[type="file"] {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.custom_form_question {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+}
+
+.custom_form_question > div {
+  flex: 1;
+}
+
+.custom_form_question > div:first-child {
+}
+
+/* .with_form{
+width: 70%;
+} */

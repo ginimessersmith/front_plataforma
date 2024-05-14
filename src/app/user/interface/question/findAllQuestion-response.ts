@@ -7,12 +7,20 @@ export interface FindAllQuestionInterface {
   UserId:    number;
   Tags:      Tag[];
   User:      User;
+  Files:     File[];
+}
+
+export interface File {
+  id:       number;
+  filename: string;
+  path_url: string;
 }
 
 export interface User {
   id:   number;
   name: string;
 }
+
 export interface Tag {
   id:   number;
   name: string;
