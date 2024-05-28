@@ -17,7 +17,9 @@
       <div>
         <div>
           {{ question.question.content }}
+
         </div>
+        <!-- {{ question.question|json }} -->
         <div class="my-2">
           <div *ngIf="question.question.Files.length>0">
             <div *ngFor="let file of question.question.Files">
@@ -143,6 +145,10 @@
           </div>
         </div>
       </mat-card-content>
+      <mat-card-actions>
+        <button mat-button (click)="like(itemResp.id)"><mat-icon>thumb_up</mat-icon></button>
+        <button mat-button (click)="unLike(itemResp.id)"><mat-icon>thumb_down</mat-icon></button>
+      </mat-card-actions>
     </mat-card>
   </div>
 </div>

@@ -1,94 +1,99 @@
 <h1 class="m-3">Recursos</h1>
 
-<div>
-  <div class="d-flex justify-content-start gap-5 align-items-center">
-    <h2 class="m-3">Categorias</h2>
-    <button *ngIf="!isCreateCategory" mat-raised-button color="primary" (click)="seeFormCreateCategory()">crear una
-      categoria</button>
-    <button *ngIf="isCreateCategory" mat-raised-button color="accent"
-      (click)="seeFormCreateCategory()">cancelar</button>
-  </div>
-  <div>
-    <form *ngIf="isCreateCategory" [formGroup]="categoryForm" (ngSubmit)="createCategory()" class="m-2">
-      <div class="d-flex gap-3">
-        <mat-form-field>
-          <mat-label>Nombre..</mat-label>
-          <input type="text" matInput placeholder="Ex. Programacion..." formControlName="name">
-          <mat-error>Este campo es requerido</mat-error>
-        </mat-form-field>
-        <button mat-raised-button color="primary" [disabled]="categoryForm.invalid" (click)="createCategory()">Crear
-          Categoria</button>
-      </div>
-
-    </form>
-  </div>
-
-  <div class="order_button ms-2">
-    <button *ngFor="let item of listCategories" mat-raised-button (click)="goToCategory(item.id)">{{item.name}}</button>
-  </div>
-</div>
-
-<div class="my-3">
-  <mat-divider></mat-divider>
-</div>
-
-<div>
-
-  <div class="d-flex justify-content-start gap-5 align-items-center">
-    <h2 class="m-2">Mis Recursos</h2>
-    <button *ngIf="!isCreateResource" mat-raised-button color="primary" (click)="seeFormCreateResource()">subir un nuevo
-      recurso</button>
-    <button *ngIf="isCreateResource" mat-raised-button color="accent"
-      (click)="seeFormCreateResource()">cancelar</button>
-  </div>
-
-  <div class="d-flex justify-content-star gap-3 m-2 p-2">
-    <div>
-      <form *ngIf="isCreateResource" [formGroup]="resourceForm" (ngSubmit)="createResource()">
-        <div>
-          <mat-form-field class="w-100">
-            <mat-label>Descripcion</mat-label>
-            <input type="text" matInput placeholder="Ex. Este recurso es..." formControlName="description">
-            <mat-error>Este campo es requerido</mat-error>
-          </mat-form-field>
-
-          <mat-form-field class="w-100">
-            <mat-label>Seleccione una categoria</mat-label>
-            <mat-select formControlName="categoryId">
-              <mat-option *ngFor="let item of listCategories" [value]="item.id">{{item.name}}</mat-option>
-            </mat-select>
-            <mat-error>Este campo es obligatorio</mat-error>
-          </mat-form-field>
-
-          <button mat-raised-button color="primary" [disabled]="resourceForm.invalid">Guardar</button>
+<div class="w-75 mx-auto m-2">
+  <mat-accordion >
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <div class="">
+          <h2 class="m-3">Categorias</h2>
+        </div>
+      </mat-expansion-panel-header>
+      <div>
+        <div class="my-2">
+          <button *ngIf="!isCreateCategory" mat-raised-button color="primary" (click)="seeFormCreateCategory()">crear una
+            categoria</button>
+          <button *ngIf="isCreateCategory" mat-raised-button color="accent"
+            (click)="seeFormCreateCategory()">cancelar</button>
         </div>
 
-      </form>
-    </div>
-    <div>
-      <button *ngIf="isCreateResource" class="custom_button_file" mat-stroked-button color="primary">
-        <mat-icon>upload</mat-icon>
-        <input type="file" (change)="onFileSelected($event)">
-        <h4>Subir Archivo</h4>
-      </button>
-    </div>
+        <form *ngIf="isCreateCategory" [formGroup]="categoryForm" (ngSubmit)="createCategory()" class="m-2">
+          <div class="d-flex gap-3">
+            <mat-form-field>
+              <mat-label>Nombre..</mat-label>
+              <input type="text" matInput placeholder="Ex. Programacion..." formControlName="name">
+              <mat-error>Este campo es requerido</mat-error>
+            </mat-form-field>
+            <button mat-raised-button color="primary" [disabled]="categoryForm.invalid" (click)="createCategory()">Crear
+              Categoria</button>
+          </div>
 
-  </div>
-  <mat-progress-bar *ngIf="inProgress" mode="indeterminate"></mat-progress-bar>
-  <mat-divider></mat-divider>
-  <mat-card class="m-3 w-50" *ngFor="let item of resourceByUser">
-    <mat-card-header>
-      <mat-card-title>{{item.description}}</mat-card-title>
-      <mat-card-subtitle>Fecha de creacion: {{item.createdAt|date}}</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <mat-card-subtitle>Archivos:</mat-card-subtitle>
-      <div class="m-2">
-        <a *ngFor="let itemFile of item.Files" [href]="itemFile.path_url">
-          <button mat-raised-button>{{itemFile.filename}}</button>
-        </a>
+        </form>
       </div>
-    </mat-card-content>
-  </mat-card>
 
+      <div class="order_button ms-2">
+        <button *ngFor="let item of listCategories" mat-raised-button
+          (click)="goToCategory(item.id)">{{item.name}}</button>
+      </div>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <div class="d-flex justify-content-start gap-5 align-items-center">
+          <h2 class="m-2">Mis Recursos</h2>
+        </div>
+      </mat-expansion-panel-header>
+      <div>
+        <button *ngIf="!isCreateResource" mat-raised-button color="primary" (click)="seeFormCreateResource()">subir un
+          nuevo
+          recurso</button>
+        <button *ngIf="isCreateResource" mat-raised-button color="accent"
+          (click)="seeFormCreateResource()">cancelar</button>
+      </div>
+
+      <div>
+
+
+
+        <div class="d-flex justify-content-star gap-3 m-2 p-2">
+          <div>
+            <form *ngIf="isCreateResource" [formGroup]="resourceForm" (ngSubmit)="createResource()">
+              <div>
+                <mat-form-field class="w-100">
+                  <mat-label>Descripcion</mat-label>
+                  <input type="text" matInput placeholder="Ex. Este recurso es..." formControlName="description">
+                  <mat-error>Este campo es requerido</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="w-100">
+                  <mat-label>Seleccione una categoria</mat-label>
+                  <mat-select formControlName="categoryId">
+                    <mat-option *ngFor="let item of listCategories" [value]="item.id">{{item.name}}</mat-option>
+                  </mat-select>
+                  <mat-error>Este campo es obligatorio</mat-error>
+                </mat-form-field>
+
+                <button mat-raised-button color="primary" [disabled]="resourceForm.invalid">Guardar</button>
+              </div>
+
+            </form>
+          </div>
+          <div>
+            <button *ngIf="isCreateResource" class="custom_button_file" mat-stroked-button color="primary">
+              <mat-icon>upload</mat-icon>
+              <input type="file" (change)="onFileSelected($event)">
+              <h4>Subir Archivo</h4>
+            </button>
+          </div>
+
+        </div>
+        <mat-progress-bar *ngIf="inProgress" mode="indeterminate"></mat-progress-bar>
+        <!-- <mat-divider></mat-divider> -->
+        <div>
+          <user-my-resources [resourceByUser]="resourceByUser"></user-my-resources>
+        </div>
+
+
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>

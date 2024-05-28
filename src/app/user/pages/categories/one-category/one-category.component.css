@@ -1,0 +1,13 @@
+.custom_button_back{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem;
+}
+
+.custom_button_back h2{
+  margin: 0;
+  line-height: 1;
+}
+
+

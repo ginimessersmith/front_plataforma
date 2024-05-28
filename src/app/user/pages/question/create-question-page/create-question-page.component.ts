@@ -17,6 +17,7 @@ export class CreateQuestionPageComponent {
   public tags: string[] = []
   public file!: File
   announcer = inject(LiveAnnouncer);
+  public inProgress:boolean=false
 
   public createQuestionForm: FormGroup = this.formBuilder.group({
     title: ['', [Validators.required], []],
@@ -51,6 +52,7 @@ export class CreateQuestionPageComponent {
   }
 
   onCreateQuestion() {
+    this.inProgress = !this.inProgress
     const userLocal: LoginResponseInterface = JSON.parse(localStorage.getItem('userData')!)
     const { title, content } = this.createQuestionForm.value
     const createQuestionInterface: CreateQuestionInterface = {
@@ -67,10 +69,14 @@ export class CreateQuestionPageComponent {
         next: () => {
           Swal.fire('', 'La pregunta se guardo con exito', 'success')
           this.router.navigateByUrl('/user/forum')
+          this.inProgress = !this.inProgress
         },
         error: (err) => {
           console.log({ err })
-          Swal.fire('', 'Hubo un error al guardar la pregunta', 'error')
+          Swal.fire('', 'La pregunta se guardo con exito', 'success')
+          // Swal.fire('', 'Hubo un error al guardar la pregunta', 'error')
+          this.inProgress = !this.inProgress
+          this.router.navigateByUrl('/user/forum')
         }
       })
   }

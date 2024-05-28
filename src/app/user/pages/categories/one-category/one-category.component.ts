@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ResourceCategoryService } from '../../../services/resource-category.service';
 import { CategoriesResourcesInterface } from '../../../interface/categories/categories-resource.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-one-category',
@@ -19,6 +20,7 @@ export class OneCategoryComponent implements OnInit {
 
   constructor(
     private resourceCategoryService: ResourceCategoryService,
+    private router:Router,
   ) { }
 
   findCategory() {
@@ -31,6 +33,10 @@ export class OneCategoryComponent implements OnInit {
           console.log({ err })
         }
       })
+  }
+
+  goBack() {
+    this.router.navigateByUrl('/user/resource')
   }
 
 }

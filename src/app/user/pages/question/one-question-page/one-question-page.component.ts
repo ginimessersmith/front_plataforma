@@ -6,6 +6,10 @@ import { LoginResponseInterface } from 'src/app/auth/interface';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CreateRespondInterface } from '../../../interface/question/create-respond.interface';
 import Swal from 'sweetalert2';
+import { PointService } from '../../../services/point.service';
+import { LikeAnswerInterface } from '../../../interface/points/like-answer.interface';
+import { UnLikeAnswerInterface } from 'src/app/user/interface/points/unlike-answer.interface';
+import { ConnectionPositionPair } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'user-one-question-page',
@@ -17,7 +21,7 @@ export class OneQuestionPageComponent implements OnInit {
   public file!: File
   public isResponse: boolean = false
   public idQuestion!: number
-  public inProgress:boolean=false
+  public inProgress: boolean = false
   public question!: FindOneQuestionInterface
   public user!: LoginResponseInterface
 
@@ -29,7 +33,8 @@ export class OneQuestionPageComponent implements OnInit {
   constructor(
     private questionService: QuestionService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private pointService: PointService,
   ) {
 
   }
@@ -56,7 +61,7 @@ export class OneQuestionPageComponent implements OnInit {
   }
 
   sendRespond() {
-    this.inProgress=!this.inProgress
+    this.inProgress = !this.inProgress
     const { description, url_extern } = this.respondForm.value
     const createRespondInterface: CreateRespondInterface = {
       description,
@@ -80,13 +85,13 @@ export class OneQuestionPageComponent implements OnInit {
     this.questionService.sendResponse(createRespondInterface)
       .subscribe({
         next: () => {
-          this.inProgress=!this.inProgress
+          this.inProgress = !this.inProgress
           this.isResponse = !this.isResponse
           this.findOneQuestion()
           Swal.fire('', 'Respuesta enviada', 'success')
         },
         error: () => {
-          this.inProgress=!this.inProgress
+          this.inProgress = !this.inProgress
           this.findOneQuestion()
           Swal.fire('', 'Respuesta enviada', 'success')
           // Swal.fire('', 'Erro al enviar la respuesta', 'error')
@@ -135,9 +140,37 @@ export class OneQuestionPageComponent implements OnInit {
     return /\.(jpg|jpeg|png|gif)$/i.test(url);
   }
 
-  goToTag(tag: {id:number,name:string}) {
+  goToTag(tag: { id: number, name: string }) {
     localStorage.setItem('Tag', JSON.stringify(tag))
     this.router.navigateByUrl('/user/one-tag')
+  }
+
+  like(idRespond: number) {
+    console.log(idRespond)
+    const LikeAnswer: LikeAnswerInterface = { responseId: idRespond }
+    this.pointService.likeAnswer(LikeAnswer)
+    .subscribe({
+      next:(response)=>{
+        console.log({response})
+      },
+      error:(err)=>{
+        console.log({err})
+      }
+    })
+  }
+
+  unLike(idRespond: number) {
+    console.log(idRespond)
+    const UnLikeAnswer: UnLikeAnswerInterface = { responseId: idRespond }
+    this.pointService.unLikeAnswer(UnLikeAnswer)
+    .subscribe({
+      next:(response)=>{
+        console.log({response})
+      },
+      error:(err)=>{
+        console.log({err})
+      }
+    })
   }
 
 }

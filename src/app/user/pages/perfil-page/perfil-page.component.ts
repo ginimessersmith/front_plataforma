@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { LoginResponseInterface } from 'src/app/auth/interface';
 import { RespondByUserInterface } from '../../interface/user/respond-by-user.interface';
 import { UserService } from '../../services/user.service';
+import { PointService } from '../../services/point.service';
+import { AllPointsInterface } from '../../interface/points/all-points.interface';
+import { AllPointsByUserInterface } from '../../interface/points/all-points-by-user.interface';
 
 @Component({
   selector: 'app-perfil-page',
@@ -13,21 +16,24 @@ export class PerfilPageComponent implements OnInit {
 
   public userData!: LoginResponseInterface
   public responses!: RespondByUserInterface[]
-  public panelOpenState = false;
+
+  public totalPoint!: AllPointsInterface
+  public AllPointsByUser!: AllPointsByUserInterface[]
+
   constructor(
     private router: Router,
     private userService: UserService,
+    private pointService: PointService,
   ) { }
   ngOnInit(): void {
 
     const userLocal: LoginResponseInterface = JSON.parse(localStorage.getItem('userData')!)
     this.userData = userLocal
     this.getResponseByUser()
+    this.totalPointByUser()
+    this.historyPointUser()
   }
 
-  goToUpdate() {
-    this.router.navigateByUrl('/user/update-user')
-  }
 
   getResponseByUser() {
     this.userService.getResponseByUser()
@@ -36,8 +42,30 @@ export class PerfilPageComponent implements OnInit {
           this.responses = response
         },
         error: (err) => {
-          console.log({err})
-         }
+          console.log({ err })
+        }
+      })
+  }
+
+  totalPointByUser() {
+    this.pointService.findAllPoint()
+      .subscribe({
+        next: (response) => {
+          this.totalPoint = response
+        },
+        error: () => { }
+      })
+  }
+
+  historyPointUser() {
+    this.pointService.findAllPointByUser()
+      .subscribe({
+        next: (reponse) => {
+          this.AllPointsByUser = reponse
+        },
+        error: (err) => {
+          console.log({ err })
+        }
       })
   }
 

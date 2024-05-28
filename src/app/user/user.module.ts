@@ -16,6 +16,10 @@ import { UpdateUserComponent } from './pages/user/update-user/update-user.compon
 import { AllTagsComponent } from './pages/tags/all-tags/all-tags.component';
 import { OneTagComponent } from './pages/tags/one-tag/one-tag.component';
 import { OneCategoryComponent } from './pages/categories/one-category/one-category.component';
+import { HistoryPointComponent } from './components/history-point/history-point.component';
+import { MyResourcesComponent } from './components/my-resources/my-resources.component';
+import { MyRespondComponent } from './components/my-respond/my-respond.component';
+import { MyPerfilComponent } from './components/my-perfil/my-perfil.component';
 
 
 
@@ -34,6 +38,10 @@ import { OneCategoryComponent } from './pages/categories/one-category/one-catego
     AllTagsComponent,
     OneTagComponent,
     OneCategoryComponent,
+    HistoryPointComponent,
+    MyResourcesComponent,
+    MyRespondComponent,
+    MyPerfilComponent,
     
   ],
   imports: [

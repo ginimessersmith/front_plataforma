@@ -28,6 +28,7 @@ export class ResourcePageComponent implements OnInit {
   public isCreateResource: boolean = false
   public resourceByUser!: ResourceByUserInterface[]
   public inProgress: boolean = false
+  panelOpenState = false;
 
   public categoryForm: FormGroup = this.formBuilder.group({
     name: ['', [Validators.required], []]

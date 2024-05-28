@@ -37,10 +37,11 @@ export class QuestionService {
     for (let tag of createQuestionInterface.tags) {
       formData.append('tags[]', tag);
     }
+    // formData.append('tags', JSON.stringify(createQuestionInterface.tags));
     formData.append('content', createQuestionInterface.content)
     if (createQuestionInterface.files) formData.append('files', createQuestionInterface.files)
-
-    return this.http.post<boolean>(url, createQuestionInterface, option)
+    console.log({url,formData,option})
+    return this.http.post<boolean>(url, formData, option)
   }
 
   findAllQuestion(): Observable<FindAllQuestionInterface[]> {

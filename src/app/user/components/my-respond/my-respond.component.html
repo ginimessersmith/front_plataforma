@@ -1,0 +1,41 @@
+<div>
+  <mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Mis Respuestas
+        </mat-panel-title>
+        <mat-panel-description>
+
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="m-2" *ngFor="let item of responses">
+        <mat-card class="pb-2">
+          <mat-card-header>
+            <mat-card-title>Descripcion: {{item.description}}</mat-card-title>
+            <mat-card-subtitle>Fecha de publicacion: {{item.createdAt | date}}</mat-card-subtitle>
+
+          </mat-card-header>
+
+          <mat-card-content>
+            <mat-divider class="my-2"></mat-divider>
+            <p *ngIf="item.url_extern">Enlace: <a class="ms-2 my-2" [href]="item.url_extern">
+                <button mat-raised-button>Ir</button>
+              </a>
+            </p>
+            <div *ngFor="let itemFile of item.Files">
+              <p *ngIf="itemFile.path_url">Archivo: <a class="ms-2 my-2" [href]="itemFile.path_url">
+                  <button mat-raised-button>{{itemFile.filename}}</button>
+                </a>
+              </p>
+            </div>
+          </mat-card-content>
+
+          <mat-card-footer>
+            <!-- <mat-progress-bar mode="buffer" color="warn"></mat-progress-bar> -->
+          </mat-card-footer>
+        </mat-card>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
