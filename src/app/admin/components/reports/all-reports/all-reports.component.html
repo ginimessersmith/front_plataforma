@@ -1,0 +1,39 @@
+<table mat-table [dataSource]="allReports" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="reason">
+    <th mat-header-cell *matHeaderCellDef> Razon </th>
+    <td mat-cell *matCellDef="let report"> {{report.reason}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="classification">
+    <th mat-header-cell *matHeaderCellDef> Clasificacion </th>
+    <td mat-cell *matCellDef="let report"> {{report.classification}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="modelType">
+    <th mat-header-cell *matHeaderCellDef> Tipo de reporte </th>
+    <td mat-cell *matCellDef="let report"> {{report.modelType}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="status">
+    <th mat-header-cell *matHeaderCellDef> Estado </th>
+    <td mat-cell *matCellDef="let report"> {{report.status}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="createdAt">
+    <th mat-header-cell *matHeaderCellDef> Fecha de reporte </th>
+    <td mat-cell *matCellDef="let report"> {{report.createdAt|date}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="options">
+    <th mat-header-cell *matHeaderCellDef> Opciones </th>
+    <td mat-cell *matCellDef="let report">
+    <button mat-icon-button color="primary" (click)="changeId(report.id)">
+      <mat-icon>search</mat-icon>
+    </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

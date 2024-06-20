@@ -6,6 +6,8 @@ import { UserService } from '../../services/user.service';
 import { PointService } from '../../services/point.service';
 import { AllPointsInterface } from '../../interface/points/all-points.interface';
 import { AllPointsByUserInterface } from '../../interface/points/all-points-by-user.interface';
+import { QuestionService } from '../../services/question.service';
+import { FindAllQuestionInterface } from '../../interface/question/findAllQuestion-response';
 
 @Component({
   selector: 'app-perfil-page',
@@ -16,6 +18,7 @@ export class PerfilPageComponent implements OnInit {
 
   public userData!: LoginResponseInterface
   public responses!: RespondByUserInterface[]
+  public questions!: FindAllQuestionInterface[]
 
   public totalPoint!: AllPointsInterface
   public AllPointsByUser!: AllPointsByUserInterface[]
@@ -24,6 +27,7 @@ export class PerfilPageComponent implements OnInit {
     private router: Router,
     private userService: UserService,
     private pointService: PointService,
+    private questionService: QuestionService
   ) { }
   ngOnInit(): void {
 
@@ -32,6 +36,7 @@ export class PerfilPageComponent implements OnInit {
     this.getResponseByUser()
     this.totalPointByUser()
     this.historyPointUser()
+    this.allQuestionByUser()
   }
 
 
@@ -51,7 +56,9 @@ export class PerfilPageComponent implements OnInit {
     this.pointService.findAllPoint()
       .subscribe({
         next: (response) => {
+          console.log({ response })
           this.totalPoint = response
+          console.log({ totalPoint: this.totalPoint })
         },
         error: () => { }
       })
@@ -62,6 +69,18 @@ export class PerfilPageComponent implements OnInit {
       .subscribe({
         next: (reponse) => {
           this.AllPointsByUser = reponse
+        },
+        error: (err) => {
+          console.log({ err })
+        }
+      })
+  }
+
+  allQuestionByUser() {
+    this.questionService.questionByUser()
+      .subscribe({
+        next: (res) => {
+          this.questions = res
         },
         error: (err) => {
           console.log({ err })

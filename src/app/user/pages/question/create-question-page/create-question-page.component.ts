@@ -17,7 +17,7 @@ export class CreateQuestionPageComponent {
   public tags: string[] = []
   public file!: File
   announcer = inject(LiveAnnouncer);
-  public inProgress:boolean=false
+  public inProgress: boolean = false
 
   public createQuestionForm: FormGroup = this.formBuilder.group({
     title: ['', [Validators.required], []],
@@ -73,8 +73,7 @@ export class CreateQuestionPageComponent {
         },
         error: (err) => {
           console.log({ err })
-          Swal.fire('', 'La pregunta se guardo con exito', 'success')
-          // Swal.fire('', 'Hubo un error al guardar la pregunta', 'error')
+          Swal.fire('Error', 'Se ha detectado contenido OFENSIVO o INAPROPIADO en su pregunta', 'error')
           this.inProgress = !this.inProgress
           this.router.navigateByUrl('/user/forum')
         }

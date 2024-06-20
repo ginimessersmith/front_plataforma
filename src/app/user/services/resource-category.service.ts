@@ -21,7 +21,6 @@ export class ResourceCategoryService {
 
   constructor(
     private http: HttpClient,
-    private router: Router,
   ) { }
 
   createResource(createResource: CreateResourceInterface): Observable<boolean> {
@@ -46,11 +45,12 @@ export class ResourceCategoryService {
     const url = `${this.baseUrl}/categories`
     const user: LoginResponseInterface = JSON.parse(localStorage.getItem('userData')!)
     const token = user.token
-
+    console.log({ createCategory })
     const headers = new HttpHeaders({
       'authorization': token
     })
     const options = { headers }
+
     return this.http.post<boolean>(url, createCategory, options)
   }
 
@@ -85,6 +85,18 @@ export class ResourceCategoryService {
     })
     const options = { headers }
     return this.http.get<ResourceByUserInterface[]>(url, options)
+  }
+
+  deleteResource(id: number): Observable<boolean> {
+    const url = `${this.baseUrl}/resources/${id}`
+    const user: LoginResponseInterface = JSON.parse(localStorage.getItem('userData')!)
+    const token = user.token
+
+    const headers = new HttpHeaders({
+      'authorization': token
+    })
+    const options = { headers }
+    return this.http.delete<boolean>(url, options)
   }
 
 }

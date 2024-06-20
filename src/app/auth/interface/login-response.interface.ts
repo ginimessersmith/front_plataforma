@@ -8,10 +8,11 @@ export interface User {
   id:        number;
   email:     string;
   name:      string;
-  phone:     null;
-  photo_url: null;
+  phone:     number | null;
+  photo_url: string | null;
   role:      string;
   active:    boolean;
   createdAt: Date;
   updatedAt: Date;
+  totalPoints: number
 }

@@ -1,20 +1,61 @@
 <div>
   <div class="ms-2 mt-2">
     <h2>Preguntas del Foro</h2>
-    <button class="ms-2 mb-2" mat-raised-button color="primary" (click)="goToCreateQuestion()">
-      Realizar una Pregunta
-    </button>
+    <div class="d-flex gap-2 align-items-center">
 
-    <button class="ms-2 mb-2" mat-flat-button color="primary" (click)="goToTags()">Ver Tags #</button>
+      <button class="ms-2 mb-2" mat-raised-button color="primary" (click)="goToCreateQuestion()">
+        Realizar una Pregunta
+      </button>
+
+      <button class="ms-2 mb-2" mat-flat-button color="primary" (click)="goToTags()">Ver Tags #</button>
+
+      <form [formGroup]="searchForm" (ngSubmit)="search()" action="" class="w-50">
+        <div class="d-flex gap-1">
+
+          <mat-form-field>
+            <mat-label>tag...</mat-label>
+            <input matInput type="text" formControlName="tag">
+          </mat-form-field>
+
+          <mat-form-field class="w-50">
+            <mat-label></mat-label>
+            <mat-date-range-input [rangePicker]="picker">
+              <input matStartDate formControlName="startDate" placeholder="Start date">
+              <input matEndDate formControlName="endDate" placeholder="End date">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+          </mat-form-field>
+
+          <mat-form-field class="w-75">
+            <mat-label>Buscar...</mat-label>
+            <input matInput type="text" formControlName="query">
+            <button matSuffix mat-icon-button aria-label="Clear"  type="submit">
+              <mat-icon>search</mat-icon>
+            </button>
+          </mat-form-field>
+
+        </div>
+      </form>
+
+    </div>
   </div>
-
+<mat-progress-bar mode="indeterminate" *ngIf="inSearch"></mat-progress-bar>
   <mat-divider></mat-divider>
   <div class="custom_question">
     <mat-card *ngFor="let item of questionList" class="w-75">
-      <mat-card-title class="custom_title_card">{{
-        item.title
-        }}</mat-card-title>
-      <mat-card-subtitle class="ms-3">Por: {{ item.User.name }}</mat-card-subtitle>
+      <mat-card-header>
+        <div class="d-flex justify-content-between w-100">
+          <div>
+            <mat-card-title>{{
+              item.title
+              }}</mat-card-title>
+            <mat-card-subtitle>Por: {{ item.User.name }}</mat-card-subtitle>
+          </div>
+          <button mat-raised-button color="warn" (click)="reportQuestion(item.id)">Reportar</button>
+        </div>
+
+      </mat-card-header>
       <mat-card-content>
         {{ item.content }}
         <!-- <mat-divider></mat-divider> -->

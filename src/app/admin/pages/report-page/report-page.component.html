@@ -1,0 +1,15 @@
+<h2 class="ms-2">Reportes</h2>
+<mat-divider></mat-divider>
+<div class="p-5">
+  <admin-all-reports
+  *ngIf="!viewOneReport"
+  [allReports]="allReports"
+  (idEmit)="changeValues($event)"
+  ></admin-all-reports>
+  <admin-one-report-with-detail
+  *ngIf="viewOneReport"
+  [id]="id"
+  (viewAllReportEmit)="changeViewOneReport($event)"
+  ></admin-one-report-with-detail>
+</div>
+

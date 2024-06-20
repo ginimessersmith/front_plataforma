@@ -25,7 +25,7 @@
             <div *ngFor="let file of question.question.Files">
               <ng-container *ngIf="esImagen(file.path_url)">
                 <div class="custom_img">
-                  <img [src]="file.path_url" alt="imagen" width="75%" height="75%">
+                  <img [src]="file.path_url" alt="imagen" width="65%" height="65%">
                 </div>
               </ng-container>
               <ng-container *ngIf="!esImagen(file.path_url)">
@@ -110,8 +110,14 @@
   <div class="custom_response">
     <mat-card class="widt_card my-3" *ngFor="let itemResp of question.responses">
       <mat-card-header>
-        <mat-card-subtitle>Respuesta por: {{ itemResp.User.name }}</mat-card-subtitle>
-        <mat-card-subtitle>Fecha: {{ itemResp.createdAt | date }}</mat-card-subtitle>
+        <div class="d-flex justify-content-between w-100">
+          <div>
+            <mat-card-subtitle>Respuesta por: {{ itemResp.User.name }}</mat-card-subtitle>
+            <mat-card-subtitle>Fecha: {{ itemResp.createdAt | date }}</mat-card-subtitle>
+          </div>
+          <button mat-raised-button color="warn" (click)="reportResponse(itemResp.id)">Reportar</button>
+        </div>
+
       </mat-card-header>
       <mat-card-content>
         <div class="custom_card_content">

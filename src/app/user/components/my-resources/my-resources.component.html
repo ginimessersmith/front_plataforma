@@ -1,8 +1,16 @@
 <div class="container_resources">
 <mat-card class="m-3 w-50" *ngFor="let item of resourceByUser">
   <mat-card-header>
-    <mat-card-title>{{item.description}}</mat-card-title>
-    <mat-card-subtitle>Fecha de creacion: {{item.createdAt|date}}</mat-card-subtitle>
+    <div class="d-flex justify-content-between w-100">
+      <div>
+        <mat-card-title>{{item.description}}</mat-card-title>
+        <mat-card-subtitle>Fecha de creacion: {{item.createdAt|date}}</mat-card-subtitle>
+      </div>
+
+      <button mat-mini-fab color="warn" (click)="deleteResource(item.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
   </mat-card-header>
   <mat-card-content>
     <mat-card-subtitle>Archivos:</mat-card-subtitle>

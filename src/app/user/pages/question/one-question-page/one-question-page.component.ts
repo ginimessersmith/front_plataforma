@@ -10,6 +10,8 @@ import { PointService } from '../../../services/point.service';
 import { LikeAnswerInterface } from '../../../interface/points/like-answer.interface';
 import { UnLikeAnswerInterface } from 'src/app/user/interface/points/unlike-answer.interface';
 import { ConnectionPositionPair } from '@angular/cdk/overlay';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from 'src/app/shared/components/dialog/dialog.component';
 
 @Component({
   selector: 'user-one-question-page',
@@ -24,6 +26,7 @@ export class OneQuestionPageComponent implements OnInit {
   public inProgress: boolean = false
   public question!: FindOneQuestionInterface
   public user!: LoginResponseInterface
+  public Dialog = new DialogComponent(this.dialog)
 
   public respondForm: FormGroup = this.formBuilder.group({
     description: ['', [Validators.required], []],
@@ -35,6 +38,7 @@ export class OneQuestionPageComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private pointService: PointService,
+    private dialog: MatDialog,
   ) {
 
   }
@@ -149,28 +153,52 @@ export class OneQuestionPageComponent implements OnInit {
     console.log(idRespond)
     const LikeAnswer: LikeAnswerInterface = { responseId: idRespond }
     this.pointService.likeAnswer(LikeAnswer)
-    .subscribe({
-      next:(response)=>{
-        console.log({response})
-      },
-      error:(err)=>{
-        console.log({err})
-      }
-    })
+      .subscribe({
+        next: (response) => {
+          console.log({ response })
+        },
+        error: (err) => {
+          console.log({ err })
+        }
+      })
   }
 
   unLike(idRespond: number) {
     console.log(idRespond)
     const UnLikeAnswer: UnLikeAnswerInterface = { responseId: idRespond }
     this.pointService.unLikeAnswer(UnLikeAnswer)
-    .subscribe({
-      next:(response)=>{
-        console.log({response})
-      },
-      error:(err)=>{
-        console.log({err})
-      }
-    })
+      .subscribe({
+        next: (response) => {
+          console.log({ response })
+        },
+        error: (err) => {
+          console.log({ err })
+        }
+      })
+  }
+
+  reportResponse(id: number) {
+    this.questionService.reportResponse(id)
+      .subscribe({
+        next: (res) => {
+          if (res) {
+            const message: string = `Se reporto la respuesta con exito`
+            const title: string = `Reporte`
+            this.Dialog.openDialogSuccess(message, title)
+          } else {
+            const message: string = `Hubo un error al intentar reportar una respuesta`
+            const title: string = `Error de Reporte`
+            this.Dialog.openDialogSuccess(message, title)
+          }
+          this.findOneQuestion()
+        },
+        error: (err) => {
+          console.log({ err })
+          const message: string = `Hubo un error al intentar reportar una respuesta`
+          const title: string = `Error de Reporte`
+          this.Dialog.openDialogSuccess(message, title)
+        }
+      })
   }
 
 }

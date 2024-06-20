@@ -6,6 +6,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { MaterialModule } from '../material/material.module';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { IFrameVideoComponent } from './components/i-frame-video/i-frame-video.component';
+import { DialogComponent } from './components/dialog/dialog.component';
+
 
 
 
@@ -15,7 +17,8 @@ import { IFrameVideoComponent } from './components/i-frame-video/i-frame-video.c
     HeaderComponent,
     FooterComponent,
     SpinnerComponent,
-    IFrameVideoComponent
+    IFrameVideoComponent,
+    DialogComponent,
   ],
   imports: [
     CommonModule,

@@ -59,11 +59,11 @@ export class LayoutPageComponent implements OnInit {
       label:'Recursos',
       route:'/user/resource'
     },
-    {
-      icon:'settings',
-      label:'Ajustes',
-      route:'/user/setting'
-    },
+    // {
+    //   icon:'settings',
+    //   label:'Ajustes',
+    //   route:'/user/setting'
+    // },
   ])
 
   onLogout(){

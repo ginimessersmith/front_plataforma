@@ -1,7 +1,7 @@
 <h1 class="m-3">Recursos</h1>
 
 <div class="w-75 mx-auto m-2">
-  <mat-accordion >
+  <mat-accordion>
     <mat-expansion-panel hideToggle>
       <mat-expansion-panel-header>
         <div class="">
@@ -10,7 +10,8 @@
       </mat-expansion-panel-header>
       <div>
         <div class="my-2">
-          <button *ngIf="!isCreateCategory" mat-raised-button color="primary" (click)="seeFormCreateCategory()">crear una
+          <button *ngIf="!isCreateCategory" mat-raised-button color="primary" (click)="seeFormCreateCategory()">crear
+            una
             categoria</button>
           <button *ngIf="isCreateCategory" mat-raised-button color="accent"
             (click)="seeFormCreateCategory()">cancelar</button>
@@ -23,7 +24,7 @@
               <input type="text" matInput placeholder="Ex. Programacion..." formControlName="name">
               <mat-error>Este campo es requerido</mat-error>
             </mat-form-field>
-            <button mat-raised-button color="primary" [disabled]="categoryForm.invalid" (click)="createCategory()">Crear
+            <button mat-raised-button color="primary" [disabled]="categoryForm.invalid">Crear
               Categoria</button>
           </div>
 
@@ -51,8 +52,6 @@
       </div>
 
       <div>
-
-
 
         <div class="d-flex justify-content-star gap-3 m-2 p-2">
           <div>
@@ -89,7 +88,11 @@
         <mat-progress-bar *ngIf="inProgress" mode="indeterminate"></mat-progress-bar>
         <!-- <mat-divider></mat-divider> -->
         <div>
-          <user-my-resources [resourceByUser]="resourceByUser"></user-my-resources>
+          <mat-progress-bar *ngIf="inProgressResource" mode="indeterminate"></mat-progress-bar>
+          <user-my-resources [resourceByUser]="resourceByUser" (progressTrueEmit)="changeInProgressResourceTrue($event)"
+            (progressFalseEmit)="changeInProgressResourceFalse($event)"
+            (resourceByUserEmit)="changeMyResource($event)"
+            ></user-my-resources>
         </div>
 
 

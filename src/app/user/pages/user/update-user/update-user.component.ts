@@ -50,17 +50,23 @@ export class UpdateUserComponent {
       localStorage.setItem('userData', JSON.stringify(userData))
     }
 
+    if (this.file) {
+      updateUserInterface.image = this.file
+    }
+
+    // console.log({ updateUserInterface, idUser })
+
     this.userService.updateUser(idUser, updateUserInterface)
       .subscribe({
         next: () => {
           this.openSnackBar('Actualizacion realizada', 'ok')
+          this.findOneUser()
         },
         error: (err) => {
           console.log({ err })
           Swal.fire('', 'Error al realizar la actualizacion', 'error')
         }
       })
-    // console.log({ updateUserInterface, idUser })
   }
 
   goBack() {
@@ -79,5 +85,29 @@ export class UpdateUserComponent {
       horizontalPosition: 'start',
       verticalPosition: 'top'
     });
+  }
+
+  findOneUser() {
+    const userData: LoginResponseInterface = JSON.parse(localStorage.getItem('userData')!)
+    const idUser: number = userData.user.id
+    this.userService.findOneUser(idUser)
+      .subscribe({
+        next: (res) => {
+          console.log({ formOneUser:res })
+          userData.user.active = res.active
+          userData.user.createdAt = res.createdAt
+          userData.user.email = res.email
+          userData.user.id = res.id
+          userData.user.name = res.name
+          userData.user.phone = res.phone ?? null;
+          userData.user.photo_url = res.photo_url ?? null
+          userData.user.role = res.role
+          userData.user.updatedAt = res.updatedAt
+          localStorage.setItem('userData', JSON.stringify(userData))
+        },
+        error: (err) => {
+          console.log({ err })
+        }
+      })
   }
 }

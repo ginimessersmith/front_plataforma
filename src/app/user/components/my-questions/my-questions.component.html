@@ -1,0 +1,34 @@
+<div>
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        Mis preguntas realizadas
+      </mat-expansion-panel-header>
+
+      <div class="my-3" *ngFor="let item of allQuestions">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>{{item.title}}</mat-card-title>
+            <mat-card-subtitle>Fecha de publicacion: {{item.createdAt|date}}</mat-card-subtitle>
+            <mat-card-subtitle>
+              Tags: <div class="d-flex gap-1">
+                <button mat-raised-button *ngFor="let itemTag of item.Tags"> {{itemTag.name}}</button>
+              </div>
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <strong>Contenido:</strong>
+            <p>{{item.content}}</p>
+            <strong>Archivos:</strong>
+            <div class="d-flex gap-1">
+              <a [href]="itemFile.path_url" *ngFor="let itemFile of item.Files">
+                <button mat-raised-button color="primary">{{itemFile.filename}}</button>
+
+              </a>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

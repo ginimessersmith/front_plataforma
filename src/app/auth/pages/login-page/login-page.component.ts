@@ -4,6 +4,8 @@ import { LoginInterface } from '../../interface';
 import { AuthService } from '../../services/auth.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { DialogComponent } from 'src/app/shared/components/dialog/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -13,6 +15,8 @@ import { Router } from '@angular/router';
 })
 export class LoginPageComponent {
 
+  public Dialog = new DialogComponent(this.dialog)
+
   public loginForm: FormGroup = this.formBuilder.group({
     email: ['', [Validators.required], []],
     password: ['', [Validators.required], []]
@@ -21,7 +25,8 @@ export class LoginPageComponent {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) { }
 
   onLogin() {
@@ -40,12 +45,20 @@ export class LoginPageComponent {
 
             const data = JSON.stringify(response)
             localStorage.setItem('userData', data)
-            Swal.fire('', 'Iniciado con exito', 'success')
-            this.router.navigateByUrl('/user/perfil')
+
+            const message:string= `Ingreso al sistema con exito `
+            const title:string =`Inicio de sesion`
+
+            this.Dialog.openDialogSuccess(message,title )
+            response.user.role == 'Estudiante' ? this.router.navigateByUrl('/user/perfil')
+              : this.router.navigateByUrl('/admin/users')
 
           } else {
 
-            Swal.fire('Usted no puede iniciar sesion', 'Hable con el administrador', 'error')
+            const message:string= `Error al sistema`
+            const title:string =`Usted no esta activado para ingresar al sistema`
+
+            this.Dialog.openDialogSuccess(message,title )
             this.router.navigateByUrl('/auth/login')
 
           }
@@ -53,7 +66,11 @@ export class LoginPageComponent {
         },
         error: (err) => {
           console.log({ err })
-          Swal.fire('', 'Error al iniciar sesion', 'error')
+          const title:string =`Error al ingresar al sistema`
+          const message:string= `Hubo un error al ingresar al sistema, revise su conexion
+          o bien sus datos al iniciar sesion`
+
+            this.Dialog.openDialogSuccess(message,title )
         },
       })
 

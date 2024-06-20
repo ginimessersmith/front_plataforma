@@ -1,0 +1,15 @@
+<h2 class="ms-2 mt-2">Preguntas del Foro</h2>
+<mat-divider></mat-divider>
+
+<div class="mx-5 mt-2">
+  <admin-all-question
+  *ngIf="!viewOneQuestion"
+  [allQuestion]="allQuestion"
+  (idEmit)="changeId($event)"
+  ></admin-all-question>
+  <admin-one-question
+  *ngIf="viewOneQuestion"
+  [oneQuestion]="oneQestion"
+  (viewOneQuestionEmit)="changeViewOneQuestion($event)"
+  ></admin-one-question>
+</div>

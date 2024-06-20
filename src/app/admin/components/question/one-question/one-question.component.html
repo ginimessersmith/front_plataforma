@@ -1,0 +1,42 @@
+<button mat-mini-fab color="primary" (click)="onClick()">
+  <mat-icon>arrow_back</mat-icon>
+</button>
+<div class="mt-2 d-flex justify-content-center">
+  <mat-card class="w-75">
+    <mat-card-header>
+      <mat-card-title></mat-card-title>
+      <mat-card-title>Titulo de la pregunta: {{oneQuestion.question.title}}</mat-card-title>
+      <mat-card-subtitle>Estado: {{oneQuestion.question.status}}</mat-card-subtitle>
+      <mat-card-subtitle>Tags:
+        <div class="d-flex gap-1">
+          <p *ngFor="let item of oneQuestion.question.Tags"> <button mat-raised-button>{{item.name}}</button> </p>
+        </div>
+      </mat-card-subtitle>
+      <mat-card-subtitle>
+        Archivos:
+        <div class="d-flex gap-1">
+          <a *ngFor="let item of oneQuestion.question.Files" [href]="item.path_url">
+            <button mat-raised-button>ver</button>
+          </a>
+        </div>
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <h3><strong>Contenido.</strong></h3>
+      <p>{{oneQuestion.question.content}}</p>
+      <h3 *ngIf="oneQuestion.responses.length>0"><strong>Respuestas.</strong></h3>
+      <p *ngFor="let item of oneQuestion.responses">
+        {{item.description}}
+      </p>
+      <mat-divider></mat-divider>
+    </mat-card-content>
+    <mat-card-actions>
+      <div class="w-100 d-flex gap-4 justify-content-end align-items-center" style="height: 100%;">
+        <p class="m-0">Advertencia! Este proceso es totalmente destructivo</p>
+        <button mat-raised-button color="warn" (click)="deleteQuestion(oneQuestion.question.id)">Eliminar</button>
+      </div>
+    </mat-card-actions>
+
+  </mat-card>
+</div>

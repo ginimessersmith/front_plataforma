@@ -1,0 +1,73 @@
+<button mat-mini-fab color="primary" (click)="onclick()">
+  <mat-icon>arrow_back</mat-icon>
+</button>
+<div class="mt-5 d-flex justify-content-center">
+  <mat-card class="w-50">
+    <mat-card-header>
+
+      <div class="w-100 d-flex justify-content-between">
+        <div>
+          <mat-card-title>
+            Reporte
+          </mat-card-title>
+          <mat-card-subtitle>
+            Clasificaion: {{oneReport.classification}}
+          </mat-card-subtitle>
+
+          <mat-card-subtitle>
+            Tipo: {{oneReport.modelType}}
+          </mat-card-subtitle>
+
+          <mat-card-subtitle>
+            Estado: {{oneReport.status}}
+          </mat-card-subtitle>
+
+          <mat-card-subtitle>
+            Fecha del reporte: {{oneReport.createdAt|date}}
+          </mat-card-subtitle>
+        </div>
+        <div class="d-flex gap-1 flex-column">
+          <button mat-raised-button color="primary" (click)="approveReport()">
+            Aprobar
+          </button>
+          <button mat-raised-button color="accent" (click)="rejectReport()">
+            Rechazar Publicacion
+          </button>
+        </div>
+
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+
+      <div class="d-flex justify-content-between gap-5">
+
+        <div>
+          <mat-card-subtitle>
+            <h3><strong>Razon del reporte:</strong></h3>
+          </mat-card-subtitle>
+          <p>{{oneReport.reason}}</p>
+        </div>
+
+        <div *ngIf="oneReport.Question">
+          <mat-divider [vertical]="true"></mat-divider>
+          <mat-card-subtitle>
+            <h3><strong>Detalle de la Pregunta:</strong></h3>
+          </mat-card-subtitle>
+          <p >Titulo: {{oneReport.Question?.title}}</p>
+          <p>Contenido: {{oneReport.Question?.content}}</p>
+        </div>
+
+        <div *ngIf="oneReport.Response">
+          <mat-divider [vertical]="true"></mat-divider>
+          <mat-card-subtitle>
+            <h3><strong>Detalle de la respuesta:</strong></h3>
+          </mat-card-subtitle>
+          <p>Descripcion: {{oneReport.Response?.description}}</p>
+        </div>
+
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+
+</div>

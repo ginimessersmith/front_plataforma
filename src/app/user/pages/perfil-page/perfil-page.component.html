@@ -1,25 +1,46 @@
-<div >
- <user-my-perfil [userData]="userData"></user-my-perfil>
+<div>
+
 </div>
 <mat-divider></mat-divider>
 <div class="d-flex justify-content-start align-items-center mt-2">
   <h2 class="ms-2 my-2">Mis interaciones.</h2>
   <div class="mx-3">
     <mat-icon class="mx-3" [matBadge]="responses.length" matBadgeColor="warn">comment</mat-icon>
-    <mat-icon class="mx-3" matBadge="0" matBadgeColor="warn">question_mark</mat-icon>
+    <mat-icon class="mx-3" [matBadge]="questions.length" matBadgeColor="warn">question_mark</mat-icon>
     <mat-icon class="mx-3" [matBadge]="totalPoint.puntoTotal" color="accent" matBadgeColor="primary">star</mat-icon>
   </div>
 </div>
 
 
 <mat-tab-group>
+
+  <mat-tab label="Mi Perfil">
+    <user-my-perfil [userData]="userData" [totalPoint]="totalPoint"></user-my-perfil>
+  </mat-tab>
+
   <mat-tab label="Respuestas Realizadas">
     <div class="my-2 mx-auto w-75">
       <user-my-respond [responses]="responses"></user-my-respond>
     </div>
   </mat-tab>
+
+  <mat-tab label="Preguntas Realizadas">
+    <div class="my-2 mx-auto w-75">
+      <user-my-questions
+      [allQuestions]="questions"
+      ></user-my-questions>
+    </div>
+  </mat-tab>
   <mat-tab label="Historial de Puntaje">
     <user-history-point [AllPointsByUser]="AllPointsByUser"></user-history-point>
+  </mat-tab>
+  <mat-tab label="Chat Bot">
+    <div class="d-flex justify-content-center my-2">
+      <iframe allow="microphone;" width="350" height="430"
+        src="https://console.dialogflow.com/api-client/demo/embedded/a75e3358-4497-459b-ab74-c441b8040953">
+      </iframe>
+    </div>
+
   </mat-tab>
 
 </mat-tab-group>

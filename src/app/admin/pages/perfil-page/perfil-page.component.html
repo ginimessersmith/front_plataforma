@@ -1,0 +1,29 @@
+<h2 class="ms-2">Perfil del Administrador</h2>
+<mat-divider></mat-divider>
+<div class="mt-2 d-flex justify-content-center">
+  <mat-card class="w-75">
+    <mat-card-header>
+      <div class="d-flex justify-content-between align-items-center w-100">
+        <mat-card-title>{{user.user.name}}</mat-card-title>
+        <div>
+          <div *ngIf="user.user.photo_url">
+            <img [src]="user.user.photo_url" alt="">
+          </div>
+
+          <div *ngIf="!user.user.photo_url">
+            <img class="profile-photo" src="../../../../assets/no-image.png"alt="">
+          </div>
+        </div>
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-card-subtitle>Email: {{user.user.email}}</mat-card-subtitle>
+      <mat-card-subtitle>Fecha de registro: {{user.user.createdAt|date}}</mat-card-subtitle>
+      <mat-card-subtitle>Telefono: {{user.user.phone}}</mat-card-subtitle>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary">Actualizar Perfil</button>
+    </mat-card-actions>
+  </mat-card>
+
+</div>

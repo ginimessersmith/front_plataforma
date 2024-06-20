@@ -20,6 +20,7 @@ import { HistoryPointComponent } from './components/history-point/history-point.
 import { MyResourcesComponent } from './components/my-resources/my-resources.component';
 import { MyRespondComponent } from './components/my-respond/my-respond.component';
 import { MyPerfilComponent } from './components/my-perfil/my-perfil.component';
+import { MyQuestionsComponent } from './components/my-questions/my-questions.component';
 
 
 
@@ -42,6 +43,7 @@ import { MyPerfilComponent } from './components/my-perfil/my-perfil.component';
     MyResourcesComponent,
     MyRespondComponent,
     MyPerfilComponent,
+    MyQuestionsComponent,
     
   ],
   imports: [

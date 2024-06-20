@@ -1,0 +1,52 @@
+<div class="p-4" >
+  <mat-progress-bar mode="indeterminate" color="accent" *ngIf="spinner"></mat-progress-bar>
+  <table mat-table [dataSource]="allResources" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef> Descripcion </th>
+      <td mat-cell *matCellDef="let resource"> {{resource.description}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="createdAt">
+      <th mat-header-cell *matHeaderCellDef> Fecha de Carga </th>
+      <td mat-cell *matCellDef="let resource"> {{resource.createdAt|date}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="filename">
+      <th mat-header-cell *matHeaderCellDef> Nombre del recurso </th>
+      <td mat-cell *matCellDef="let resource">
+      <div *ngFor="let item of resource.Files">
+        <h4>{{item.filename}}</h4>
+      </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="path_url">
+      <th mat-header-cell *matHeaderCellDef> Enlace </th>
+      <td mat-cell *matCellDef="let resource"> <div *ngFor="let item of resource.Files">
+        <a [href]="item.path_url">
+        <button mat-mini-fab color="primary">
+          <mat-icon>publish</mat-icon>
+        </button>
+        </a>
+      </div> </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Nombre del Usuario </th>
+      <td mat-cell *matCellDef="let resource"> {{resource.User.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="options">
+      <th mat-header-cell *matHeaderCellDef> Opciones </th>
+      <td mat-cell *matCellDef="let resource">
+        <button mat-mini-fab color="warn" (click)="deleteResource(resource.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayColumns;"></tr>
+  </table>
+</div>

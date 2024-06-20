@@ -28,6 +28,7 @@ export class ResourcePageComponent implements OnInit {
   public isCreateResource: boolean = false
   public resourceByUser!: ResourceByUserInterface[]
   public inProgress: boolean = false
+  public inProgressResource: boolean = false
   panelOpenState = false;
 
   public categoryForm: FormGroup = this.formBuilder.group({
@@ -56,10 +57,13 @@ export class ResourcePageComponent implements OnInit {
     this.resourceCategoryService.createCategory(createCategoryInterface)
       .subscribe({
         next: (resp) => {
-          Swal.fire('', 'Categoria creada', 'success')
+          if(resp)Swal.fire('', 'Categoria creada', 'success')
+
+          console.log({resp})
           this.findAllCategories()
         },
         error: (err) => {
+          console.log({err})
           Swal.fire('', 'Error al crear la categoria', 'error')
         }
       })
@@ -80,6 +84,7 @@ export class ResourcePageComponent implements OnInit {
         next: () => {
           Swal.fire('', 'El recurso fue creado con exito', 'success')
           this.inProgress = false
+          this.findMyResources()
         },
         error: (err) => {
           console.log({ err })
@@ -131,5 +136,17 @@ export class ResourcePageComponent implements OnInit {
     if (this.file) {
       console.log('Archivo seleccionado:', this.file);
     }
+  }
+
+  changeInProgressResourceTrue(newValue:boolean){
+    this.inProgressResource = newValue
+  }
+
+  changeInProgressResourceFalse(newValue:boolean){
+    this.inProgressResource = newValue
+  }
+
+  changeMyResource(myresource:ResourceByUserInterface[]){
+    this.resourceByUser = myresource
   }
 }

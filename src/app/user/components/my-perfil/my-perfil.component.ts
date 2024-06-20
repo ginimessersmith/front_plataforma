@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginResponseInterface } from 'src/app/auth/interface';
+import { AllPointsInterface } from '../../interface/points/all-points.interface';
 
 @Component({
   selector: 'user-my-perfil',
@@ -9,6 +10,7 @@ import { LoginResponseInterface } from 'src/app/auth/interface';
 })
 export class MyPerfilComponent {
   @Input() userData!: LoginResponseInterface
+  @Input() totalPoint!:AllPointsInterface
 
   constructor(
     private router:Router

@@ -1,45 +1,46 @@
 export interface FindOneQuestionInterface {
-  question:  Question;
+  question: Question;
   responses: Response[];
 }
 
 export interface Question {
-  id:        number;
-  title:     string;
-  content:   string;
+  id: number;
+  title: string;
+  content: string;
+  status: string
   createdAt: Date;
   updatedAt: Date;
-  UserId:    number;
-  Tags:      Tag[];
-  User:      User;
-  Files:     File[];
+  UserId: number;
+  Tags: Tag[];
+  User: User;
+  Files: File[];
 }
 
 export interface User {
-  id:   number;
+  id: number;
   name: string;
 }
 
 export interface Tag {
-  id:   number;
+  id: number;
   name: string;
 }
 
 export interface Response {
-  id:          number;
+  id: number;
   description: string;
-  score:       number;
-  url_extern:  string;
-  createdAt:   Date;
-  updatedAt:   Date;
-  UserId:      number;
-  QuestionId:  number;
-  User:        User;
-  Files:       File[];
+  score: number;
+  url_extern: string;
+  createdAt: Date;
+  updatedAt: Date;
+  UserId: number;
+  QuestionId: number;
+  User: User;
+  Files: File[];
 }
 
 export interface File {
-  id:       number;
+  id: number;
   filename: string;
   path_url: string;
 }
