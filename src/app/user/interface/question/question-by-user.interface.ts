@@ -1,12 +1,4 @@
-export interface FindAllQuestionInterface {
-  totalItems:  number;
-  totalPages:  number;
-  currentPage: number;
-  pageSize:    number;
-  data:        Datum[];
-}
-
-export interface Datum {
+export interface QuestionByUserInterface {
   id:        number;
   title:     string;
   content:   string;
@@ -14,8 +6,7 @@ export interface Datum {
   createdAt: Date;
   updatedAt: Date;
   UserId:    number;
-  Tags:      User[];
-  User:      User;
+  Tags:      Tag[];
   Files:     File[];
 }
 
@@ -25,7 +16,7 @@ export interface File {
   path_url: string;
 }
 
-export interface User {
+export interface Tag {
   id:   number;
   name: string;
 }

@@ -8,6 +8,7 @@ import { FindAllQuestionInterface } from '../interface/question/findAllQuestion-
 import { FindOneQuestionInterface } from '../interface/question/finOneQuestion-response';
 import { CreateRespondInterface } from '../interface/question/create-respond.interface';
 import { searchInterface } from '../interface/search/search.interface';
+import { QuestionByUserInterface } from '../interface/question/question-by-user.interface';
 
 
 @Injectable({
@@ -49,9 +50,13 @@ export class QuestionService {
       )
   }
 
-  findAllQuestion(): Observable<FindAllQuestionInterface[]> {
+  findAllQuestion(currentPage:number,pageSize:number): Observable<FindAllQuestionInterface> {
     const url = `${this.baseUrl}/questions`
-    return this.http.get<FindAllQuestionInterface[]>(url)
+    let params = new HttpParams();
+    params = params.append('page', currentPage.toString());
+    params = params.append('pageSize', pageSize.toString());
+
+    return this.http.get<FindAllQuestionInterface>(url, { params });
   }
 
   findOneQuestion(id: number): Observable<FindOneQuestionInterface> {
@@ -117,7 +122,7 @@ export class QuestionService {
     return this.http.post<boolean>(url, body, { headers })
   }
 
-  questionByUser(): Observable<FindAllQuestionInterface[]> {
+  questionByUser(): Observable<QuestionByUserInterface[]> {
     const url = `${this.baseUrl}/questions/v1/user`
     const user: LoginResponseInterface = JSON.parse(localStorage.getItem('userData')!)
     const token = user.token
@@ -127,10 +132,10 @@ export class QuestionService {
     })
 
     const options = { headers }
-    return this.http.get<FindAllQuestionInterface[]>(url, options)
+    return this.http.get<QuestionByUserInterface[]>(url, options)
   }
 
-  searchQuestion(search:searchInterface):Observable<FindAllQuestionInterface[]>{
+  searchQuestion(search:searchInterface,currentPage:number,pageSize:number):Observable<FindAllQuestionInterface>{
     const url = `${this.baseUrl}/questions/v1/search`
     let params = new HttpParams();
 
@@ -150,6 +155,6 @@ export class QuestionService {
       params = params.set('tag', search.tag);
     }
 
-    return this.http.get<FindAllQuestionInterface[]>(url, { params });
+    return this.http.get<FindAllQuestionInterface>(url, { params });
   }
 }

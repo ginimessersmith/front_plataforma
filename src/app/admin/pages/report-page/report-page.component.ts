@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ReportInterface } from '../../interface/report/report.interface';
 import { ReportService } from '../../services/report.service';
+import { FindAllReportsInterface } from '../../interface/report/FindAllReports.interface';
 
 @Component({
   selector: 'app-report-page',
@@ -9,9 +10,11 @@ import { ReportService } from '../../services/report.service';
 })
 export class ReportPageComponent implements OnInit {
 
-  public allReports!: ReportInterface[]
+  public allReports!: FindAllReportsInterface
   public viewOneReport: boolean = false
   public id!: number
+  public currentPage:number=1
+  public pageSize:number = 5
 
   ngOnInit(): void {
     this.findAllReports()
@@ -22,7 +25,7 @@ export class ReportPageComponent implements OnInit {
   ) { }
 
   findAllReports() {
-    this.reportService.findAllReports()
+    this.reportService.findAllReports(this.currentPage,this.pageSize)
       .subscribe({
         next: (res) => {
           this.allReports = res

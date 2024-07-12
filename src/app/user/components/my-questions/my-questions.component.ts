@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FindAllQuestionInterface } from '../../interface/question/findAllQuestion-response';
+import { QuestionByUserInterface } from '../../interface/question/question-by-user.interface';
 
 @Component({
   selector: 'user-my-questions',
@@ -8,6 +9,6 @@ import { FindAllQuestionInterface } from '../../interface/question/findAllQuesti
 })
 export class MyQuestionsComponent {
 
-  @Input() allQuestions!:FindAllQuestionInterface[]
+  @Input() allQuestions!:QuestionByUserInterface[]
 
 }

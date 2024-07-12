@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UpdateUserInterface } from '../interface/user/update-user.interface';
 import { environment } from 'src/environments/environment';
@@ -6,6 +6,7 @@ import { LoginInterface, LoginResponseInterface } from 'src/app/auth/interface';
 import { Observable } from 'rxjs';
 import { RespondByUserInterface } from '../interface/user/respond-by-user.interface';
 import { UserInterface } from '../interface/user/user.interface';
+import { FindAllUsersInterface } from '../interface/user/FindAllUsers.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -58,9 +59,12 @@ export class UserService {
     return this.http.get<RespondByUserInterface[]>(url, options)
   }
 
-  findAllUsers(): Observable<UserInterface[]> {
+  findAllUsers(currentPage: number, pageSize: number): Observable<FindAllUsersInterface> {
     const url = `${this.baseUrl}/users/`
-    return this.http.get<UserInterface[]>(url)
+    let params = new HttpParams();
+    params = params.append('page', currentPage.toString());
+    params = params.append('pageSize', pageSize.toString());
+    return this.http.get<FindAllUsersInterface>(url, { params })
   }
 
   findOneUser(id: number): Observable<UserInterface> {
@@ -90,6 +94,6 @@ export class UserService {
     const formData = new FormData()
     formData.append('image', image)
 
-    return this.http.post<boolean>(url, formData,{headers})
+    return this.http.post<boolean>(url, formData, { headers })
   }
 }

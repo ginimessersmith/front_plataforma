@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -6,6 +6,7 @@ import { ReportDetailsInterface } from '../interface/report/report-details.inter
 import { ReportInterface } from '../interface/report/report.interface';
 import { HandleReport } from '../interface/report/handle-report.interface';
 import { LoginResponseInterface } from 'src/app/auth/interface';
+import { FindAllReportsInterface } from '../interface/report/FindAllReports.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -17,9 +18,12 @@ export class ReportService {
     private http:HttpClient
   ) { }
 
-  findAllReports():Observable<ReportInterface[]>{
+  findAllReports(currentPage:number,pageSize:number):Observable<FindAllReportsInterface>{
     const url:string =`${this.baseUrl}/reports`
-    return this.http.get<ReportInterface[]>(url)
+    let params = new HttpParams();
+    params = params.append('page', currentPage.toString());
+    params = params.append('pageSize', pageSize.toString());
+    return this.http.get<FindAllReportsInterface>(url,{params})
   }
 
   findOneReportWithDetails(id:number):Observable<ReportDetailsInterface>{

@@ -8,6 +8,7 @@ import { AllPointsInterface } from '../../interface/points/all-points.interface'
 import { AllPointsByUserInterface } from '../../interface/points/all-points-by-user.interface';
 import { QuestionService } from '../../services/question.service';
 import { FindAllQuestionInterface } from '../../interface/question/findAllQuestion-response';
+import { QuestionByUserInterface } from '../../interface/question/question-by-user.interface';
 
 @Component({
   selector: 'app-perfil-page',
@@ -18,10 +19,12 @@ export class PerfilPageComponent implements OnInit {
 
   public userData!: LoginResponseInterface
   public responses!: RespondByUserInterface[]
-  public questions!: FindAllQuestionInterface[]
+  public questions!: QuestionByUserInterface[]
 
   public totalPoint!: AllPointsInterface
   public AllPointsByUser!: AllPointsByUserInterface[]
+  public currentPage: number = 1
+  public pageSize: number = 10
 
   constructor(
     private router: Router,

@@ -1,4 +1,4 @@
-export interface FindAllQuestionInterface {
+export interface FindAllResourceInterface {
   totalItems:  number;
   totalPages:  number;
   currentPage: number;
@@ -7,16 +7,14 @@ export interface FindAllQuestionInterface {
 }
 
 export interface Datum {
-  id:        number;
-  title:     string;
-  content:   string;
-  status:    string;
-  createdAt: Date;
-  updatedAt: Date;
-  UserId:    number;
-  Tags:      User[];
-  User:      User;
-  Files:     File[];
+  id:          number;
+  description: string;
+  createdAt:   Date;
+  updatedAt:   Date;
+  UserId:      number;
+  CategoryId:  number;
+  Files:       File[];
+  User:        User;
 }
 
 export interface File {

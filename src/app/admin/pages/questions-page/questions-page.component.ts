@@ -10,10 +10,12 @@ import { FindOneQuestionInterface } from 'src/app/user/interface/question/finOne
 })
 export class QuestionsPageComponent implements OnInit {
 
-  public allQuestion!: FindAllQuestionInterface[]
+  public allQuestion!: FindAllQuestionInterface
   public idQuestion!:number
   public oneQestion!:FindOneQuestionInterface
   public viewOneQuestion:boolean = false
+  public currentPage: number = 1
+  public pageSize: number = 5
 
   constructor(
     private questionService: QuestionService
@@ -23,7 +25,7 @@ export class QuestionsPageComponent implements OnInit {
   }
 
   findAllQuestion() {
-    this.questionService.findAllQuestion()
+    this.questionService.findAllQuestion(this.currentPage,this.pageSize)
       .subscribe({
         next: (res) => {
           this.allQuestion = res

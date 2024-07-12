@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -11,6 +11,7 @@ import { CategoriesResourcesInterface } from '../interface/categories/categories
 import { OneCategoriesInterface } from '../interface/categories/OneCategories.interface';
 import { LoginResponseInterface } from 'src/app/auth/interface';
 import { ResourceByUserInterface } from '../interface/resources/resource-by-user.interface';
+import { FindAllResourceInterface } from '../interface/resources/findAllResources.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -59,9 +60,12 @@ export class ResourceCategoryService {
     return this.http.get<OneResourceInterface>(url)
   }
 
-  findAllResource(): Observable<OneResourceInterface[]> {
+  findAllResource(currentPage: number, pageSize: number): Observable<FindAllResourceInterface> {
     const url = `${this.baseUrl}/resources`
-    return this.http.get<OneResourceInterface[]>(url)
+    let params = new HttpParams();
+    params = params.append('page', currentPage.toString());
+    params = params.append('pageSize', pageSize.toString());
+    return this.http.get<FindAllResourceInterface>(url, { params })
   }
 
   findOneCategoryWithResources(id: number): Observable<CategoriesResourcesInterface> {

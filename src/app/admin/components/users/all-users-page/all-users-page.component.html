@@ -1,4 +1,4 @@
-<table mat-table [dataSource]="allUsers" class="mat-elevation-z8">
+<table mat-table [dataSource]="allUsers.data" class="mat-elevation-z8">
 
   <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef> Nombre del Usuario </th>
@@ -49,4 +49,9 @@
 
   <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayColumns;"></tr>
+
 </table>
+
+<mat-paginator [length]="allUsers.totalItems" [pageSizeOptions]="[5, 10, 15]" aria-label="Select page" (page)="onChange($event)">
+</mat-paginator>
+

@@ -3,6 +3,9 @@ import { OneResourceInterface } from 'src/app/user/interface/resources/one-resou
 import { ResourceCategoryService } from '../../../../user/services/resource-category.service';
 import { DialogComponent } from 'src/app/shared/components/dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { FindAllResourceInterface } from 'src/app/user/interface/resources/findAllResources.interface';
+import { PageEvent } from '@angular/material/paginator';
+
 
 
 @Component({
@@ -12,8 +15,12 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class AllResourcesComponent {
 
-  @Input() allResources!: OneResourceInterface[]
+  @Input() allResources!: FindAllResourceInterface
   public spinner:boolean = false
+
+  public currentPage:number=1
+  public pageSize:number = 5
+
   public displayColumns: string[] = [
     'description',
     'createdAt',
@@ -38,7 +45,7 @@ export class AllResourcesComponent {
         const message:string ='El recurso fue eliminado con exito'
         const title:string ='Eliminacion del recurso'
         this.Dialog.openDialogSuccess(message,title)
-        this.findAllResources()
+        this.findAllResources(this.currentPage,this.pageSize)
         this.spinner = false
       },
       error:(err)=>{
@@ -51,8 +58,8 @@ export class AllResourcesComponent {
     })
   }
 
-  findAllResources() {
-    this.resourceCategoryService.findAllResource()
+  findAllResources(currentPage:number ,pageSize:number) {
+    this.resourceCategoryService.findAllResource(currentPage,pageSize)
       .subscribe({
         next: (res) => {
           this.allResources = res
@@ -61,6 +68,14 @@ export class AllResourcesComponent {
           console.log(err)
         }
       })
+  }
+
+  onChange(event: PageEvent) {
+    this.currentPage = event.pageIndex + 1
+    this.pageSize = event.pageSize;
+    console.log({currentPage:this.currentPage})
+    console.log({pageSize:this.pageSize})
+    this.findAllResources(this.currentPage,this.pageSize)
   }
 
 }

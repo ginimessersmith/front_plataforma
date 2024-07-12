@@ -43,7 +43,7 @@
 <mat-progress-bar mode="indeterminate" *ngIf="inSearch"></mat-progress-bar>
   <mat-divider></mat-divider>
   <div class="custom_question">
-    <mat-card *ngFor="let item of questionList" class="w-75">
+    <mat-card *ngFor="let item of questionList.data" class="w-75">
       <mat-card-header>
         <div class="d-flex justify-content-between w-100">
           <div>
@@ -76,5 +76,11 @@
         </div>
       </mat-card-footer>
     </mat-card>
+    <mat-paginator [length]="questionList.totalItems" [pageSizeOptions]="[5, 10, 15]" aria-label="Select page" (page)="onChange($event)"></mat-paginator>
+    <!-- currentPage {{questionList.currentPage}},
+    pageSize {{questionList.pageSize}},
+    totalItems {{questionList.totalItems}},
+    totalPages {{questionList.totalPages}}, -->
+
   </div>
 </div>

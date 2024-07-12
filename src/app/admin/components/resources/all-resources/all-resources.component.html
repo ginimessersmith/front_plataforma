@@ -1,6 +1,6 @@
 <div class="p-4" >
   <mat-progress-bar mode="indeterminate" color="accent" *ngIf="spinner"></mat-progress-bar>
-  <table mat-table [dataSource]="allResources" class="mat-elevation-z8">
+  <table mat-table [dataSource]="allResources.data" class="mat-elevation-z8">
 
     <ng-container matColumnDef="description">
       <th mat-header-cell *matHeaderCellDef> Descripcion </th>
@@ -49,4 +49,5 @@
     <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayColumns;"></tr>
   </table>
+  <mat-paginator [length]="allResources.totalItems" [pageSizeOptions]="[5,10,15]" aria-label="Select Page" (page)="onChange($event)"></mat-paginator>
 </div>
